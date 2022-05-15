@@ -2,9 +2,11 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import "@pages/popup/index.css";
 import Popup from "@pages/popup/Popup";
+import CssBaseline from '@mui/material/CssBaseline';
+import darkScrollbar from '@mui/material/darkScrollbar';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
-const darkTheme = createTheme({
+const theme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
@@ -19,7 +21,12 @@ function init() {
     throw new Error("Can not find AppContainer");
   }
   const root = createRoot(appContainer);
-  root.render(<ThemeProvider theme={darkTheme}><Popup /></ThemeProvider>);
+  root.render(
+    <ThemeProvider theme={theme}>
+      <CssBaseline/>
+      <Popup />
+    </ThemeProvider>
+  );
 }
 
 init();
