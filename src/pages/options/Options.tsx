@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Paper from '@mui/material/Paper';
+import Container from '@mui/material/Container';
 import '@fontsource/roboto/400.css';
 
 
@@ -38,13 +39,16 @@ const Options = () => {
               </AppBar>
             </Box>
           </header>
-          <div className="App-body">
-            <Paper variant="outlined" sx={{width: 200, height: 200}}>
+          <Container maxWidth="md" sx={{marginTop: 2}}>
+            <Typography variant="h4" component="div">
+              Bokmärken
+            </Typography>
+            <Paper elevation={3} sx={{width: "100%", height: "100%"}}>
               <Box>
-
+                ok
               </Box>
             </Paper>
-          </div>
+          </Container>
         </div>
     );
   }

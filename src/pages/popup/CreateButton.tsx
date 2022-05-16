@@ -92,13 +92,6 @@ const CreateButton = ({ setPage }: CreateButtonProps) => {
             <Button
               variant="contained"
               disableElevation
-              onClick={() => getBookMarks()}
-            >
-              Shh
-            </Button>
-            <Button
-              variant="contained"
-              disableElevation
               onClick={() => openOptions()}
             >
               Alternatv

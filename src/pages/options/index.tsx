@@ -3,6 +3,8 @@ import { createRoot } from "react-dom/client";
 import Options from "@pages/options/Options";
 import "@pages/options/index.css";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+
 
 const darkTheme = createTheme({
   palette: {
@@ -19,7 +21,7 @@ function init() {
     throw new Error("Can not find AppContainer");
   }
   const root = createRoot(appContainer);
-  root.render(<ThemeProvider theme={darkTheme}><Options /></ThemeProvider>);
+  root.render(<ThemeProvider theme={darkTheme}><CssBaseline /><Options /></ThemeProvider>);
 }
 
 init();
