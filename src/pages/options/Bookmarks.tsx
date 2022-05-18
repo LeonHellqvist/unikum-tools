@@ -12,6 +12,8 @@ import Container from "@mui/material/Container";
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import Slider from '@mui/material/Slider';
+import ButtonGroup from '@mui/material/ButtonGroup';
 import { HexColorPicker } from "react-colorful";
 import Switch from '@mui/material/Switch';
 import {
@@ -38,6 +40,11 @@ function Bookmarks() {
       console.log("saved");
     });
   }, [bookmarks]);
+
+  const selectBookmark = (uuid: string) => {
+    const bookmark = bookmarks.find((bookmark) => bookmark.uuid === uuid);
+    setSelectedBookmark(bookmark);
+  };
 
   const onDragEnd = (result: DropResult) => {
     if (!result.destination) return;
@@ -71,8 +78,8 @@ function Bookmarks() {
                     {bookmarks.map((bookmark, index) => {
                       return (
                         <Draggable
-                          key={bookmark.url}
-                          draggableId={bookmark.url}
+                          key={bookmark.uuid}
+                          draggableId={bookmark.uuid}
                           index={index}
                         >
                           {(provided) => (
@@ -82,7 +89,7 @@ function Bookmarks() {
                               {...provided.dragHandleProps}
                             >
                               <Button
-                                sx={{margin:1, marginTop:2, backgroundColor: "#ffe138", color: "#000000de"}}
+                                sx={{margin:1, marginTop:2, backgroundColor: "#ffe138", color: "#000000de", borderRadius: 1, boxShadow: 0}}
                                 variant="contained"
                                 color="primary"
                                 href={bookmark.url}
@@ -129,6 +136,44 @@ function Bookmarks() {
                         </Stack>
                       </Stack>
                     </Box>
+                    <Divider/>
+                    <Box sx={{width: "50%"}}>
+                      <Stack direction="row" spacing={1}>
+                        <Typography variant="body1" component="span" sx={{marginBottom: 2, paddingTop: 0.5, textAlign: 'center'}}>
+                          Radius
+                        </Typography>
+                        <Slider defaultValue={1} step={1} marks min={0} max={6} size="small" />
+                      </Stack>
+                    </Box>
+                    <Divider/>
+                    <Box sx={{width: "50%"}}>
+                      <Stack direction="row" spacing={1}>
+                        <Typography variant="body1" component="span" sx={{marginBottom: 2, paddingTop: 0.5, textAlign: 'center'}}>
+                          Höjd
+                        </Typography>
+                        <Slider defaultValue={3} step={1} marks min={0} max={24} size="small" />
+                      </Stack>
+                    </Box>
+                    <Divider/>
+                    <Box sx={{width: "50%"}}>
+                      <Stack direction="row" spacing={1}>
+                        <Typography variant="body1" component="span" sx={{marginBottom: 2, paddingTop: 0.5, textAlign: 'center'}}>
+                          Stil
+                        </Typography>
+                        <ButtonGroup variant="contained" sx={{height: 30}} size="small" aria-label="outlined primary button group">
+                          <Button key="iflylld" >Ifylld</Button>
+                          <Button key="kontur" variant="outlined">Kontur</Button>
+                        </ButtonGroup>
+                      </Stack>
+                    </Box>
+                    <Divider/>
+                    <Box sx={{width: "50%"}}>
+                      <Stack direction="row" spacing={1}>
+                        <Button variant="outlined" color="error" size="small">
+                          Ta bort bokmärke
+                        </Button>
+                      </Stack>
+                    </Box>
                   </Stack>
                 </Paper>
               </Grid>
@@ -140,8 +185,10 @@ function Bookmarks() {
                     </Typography>
                     <Divider sx={{margin: 1}}/>
                     <FormGroup>
-                      <FormControlLabel control={<Checkbox />} label="Samma färg" />
-                      <FormControlLabel control={<Checkbox />} label="Fin fisk" />
+                      <FormControlLabel control={<Checkbox />} defaultChecked label="Samma backgrundsfärg" />
+                      <FormControlLabel control={<Checkbox />} defaultChecked label="Samma textfärg" />
+                      <FormControlLabel control={<Checkbox />} defaultChecked label="Samma radius" />
+                      <FormControlLabel control={<Checkbox />} defaultChecked label="Samma höjd" />
                     </FormGroup>
                   </Paper>
                   <Paper variant="outlined" sx={{padding: 2}}>

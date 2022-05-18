@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { v4 as uuidv4 } from 'uuid';
 import "@pages/popup/Popup.css";
 
 interface CreateButtonProps {
@@ -44,16 +45,27 @@ const CreateButton = ({ setPage }: CreateButtonProps) => {
           found = false;
         }
         if (!found) {
+          const uuid = uuidv4()
+          const newBookmark = {
+            url: tabs[0].url,
+            title: title, 
+            uuid: uuid,
+            bgColor: "#ffe138",
+            txtColor: "#000000de",
+            borderRadius: 1,
+            boxShadow: 3,
+            style: "contained",
+          }
           if (result.bookmarks !== undefined) {
             chrome.storage.sync.set({
               bookmarks: [
                 ...result.bookmarks,
-                { url: tabs[0].url, title: title },
+                newBookmark,
               ],
             });
           } else {
             chrome.storage.sync.set({
-              bookmarks: [{ url: tabs[0].url, title: title }],
+              bookmarks: [newBookmark],
             });
           }
           return;
