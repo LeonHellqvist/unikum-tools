@@ -24,9 +24,9 @@ import {
 } from "react-beautiful-dnd";
 import TextField from "@mui/material/TextField";
 
-function Bookmarks() {
+const Bookmarks = () => {
   const [bookmarks, setBookmarks] = React.useState<any[]>([]);
-  const [selectedBookmark, setSelectedBookmark] = React.useState<any>();
+  const [selectedBookmark, setSelectedBookmark] = React.useState<any>({notYetSelected: true});
 
   React.useEffect(() => {
     chrome.storage.sync.get(["bookmarks"], (result) => {
@@ -41,10 +41,38 @@ function Bookmarks() {
     });
   }, [bookmarks]);
 
+  React.useEffect(() => {
+    console.log("selected")
+    if (selectedBookmark.notYetSelected !== true ) {
+      for (let i = 0, l = bookmarks.length; i < l; i++) {
+        if (bookmarks[i].uuid === selectedBookmark.uuid) {
+          let newBookmarks = [...bookmarks]
+          newBookmarks[i] = selectedBookmark
+          setBookmarks(newBookmarks);
+        }
+      }
+
+    }
+  }, [selectedBookmark])
+
   const selectBookmark = (uuid: string) => {
     const bookmark = bookmarks.find((bookmark) => bookmark.uuid === uuid);
-    setSelectedBookmark(bookmark);
+    setSelectedBookmark(bookmark)
   };
+
+  const handleBookmarkChange = (e: any) => {
+    const { name, value } = e.target;
+    let newSelectedBookmark = {...selectedBookmark};
+    newSelectedBookmark[name] = value;
+    setSelectedBookmark(newSelectedBookmark);
+  };
+
+  const disabled = () => {
+    if (selectedBookmark.notYetSelected === true) {
+      return true;
+    }
+    return false;
+  }
 
   const onDragEnd = (result: DropResult) => {
     if (!result.destination) return;
@@ -89,10 +117,11 @@ function Bookmarks() {
                               {...provided.dragHandleProps}
                             >
                               <Button
-                                sx={{margin:1, marginTop:2, backgroundColor: "#ffe138", color: "#000000de", borderRadius: 1, boxShadow: 0}}
+                                sx={{margin:1, marginTop:2, backgroundColor: "#ffe138", color: "#000000de", borderRadius: bookmark.radius, boxShadow: bookmark.boxShadow}}
                                 variant="contained"
                                 color="primary"
-                                href={bookmark.url}
+                                component="a"
+                                onClick={() => selectBookmark(bookmark.uuid)}
                               >
                                 {bookmark.title}
                               </Button>
@@ -115,8 +144,8 @@ function Bookmarks() {
                     Alternativ för individuellt bokmärke
                   </Typography>
                   <Stack direction="column" spacing={1}>
-                    <TextField id="filled-basic" label="Titel" variant="filled" size="small"/>
-                    <TextField id="filled-basic" label="URL" variant="filled" size="small"/>
+                    <TextField id="title-field" disabled={disabled()} value={selectedBookmark.title ? selectedBookmark.title  : ""} onChange={handleBookmarkChange} label="Titel" name="title" variant="filled" size="small"/>
+                    <TextField id="url-field" disabled={disabled()} value={selectedBookmark.url ? selectedBookmark.url  : ""} onChange={handleBookmarkChange} label="URL" name="url" variant="filled" size="small"/>
                     <Divider/>
                     <Box>
                       <Stack direction="row" spacing={2}>
@@ -142,7 +171,7 @@ function Bookmarks() {
                         <Typography variant="body1" component="span" sx={{marginBottom: 2, paddingTop: 0.5, textAlign: 'center'}}>
                           Radius
                         </Typography>
-                        <Slider defaultValue={1} step={1} marks min={0} max={6} size="small" />
+                        <Slider disabled={disabled()} value={selectedBookmark.radius ? selectedBookmark.radius : 0} name="radius" onChange={handleBookmarkChange} step={1} marks min={0} max={5} size="small" />
                       </Stack>
                     </Box>
                     <Divider/>
@@ -151,7 +180,7 @@ function Bookmarks() {
                         <Typography variant="body1" component="span" sx={{marginBottom: 2, paddingTop: 0.5, textAlign: 'center'}}>
                           Höjd
                         </Typography>
-                        <Slider defaultValue={3} step={1} marks min={0} max={24} size="small" />
+                        <Slider disabled={disabled()} value={selectedBookmark.boxShadow ? selectedBookmark.boxShadow : 0} name="boxShadow" onChange={handleBookmarkChange} step={1} marks min={0} max={24} size="small" />
                       </Stack>
                     </Box>
                     <Divider/>
@@ -160,7 +189,7 @@ function Bookmarks() {
                         <Typography variant="body1" component="span" sx={{marginBottom: 2, paddingTop: 0.5, textAlign: 'center'}}>
                           Stil
                         </Typography>
-                        <ButtonGroup variant="contained" sx={{height: 30}} size="small" aria-label="outlined primary button group">
+                        <ButtonGroup disabled={disabled()} variant="contained" sx={{height: 30}} size="small" aria-label="outlined primary button group">
                           <Button key="iflylld" >Ifylld</Button>
                           <Button key="kontur" variant="outlined">Kontur</Button>
                         </ButtonGroup>
@@ -169,7 +198,7 @@ function Bookmarks() {
                     <Divider/>
                     <Box sx={{width: "50%"}}>
                       <Stack direction="row" spacing={1}>
-                        <Button variant="outlined" color="error" size="small">
+                        <Button disabled={disabled()} variant="outlined" color="error" size="small">
                           Ta bort bokmärke
                         </Button>
                       </Stack>
