@@ -4,13 +4,14 @@ import Options from "@pages/options/Options";
 import "@pages/options/index.css";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import {yellow} from '@mui/material/colors';
 
 
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#ffe138',
+      main: yellow[500],
     },
   },
 });

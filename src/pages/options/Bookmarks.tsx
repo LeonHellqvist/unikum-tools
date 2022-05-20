@@ -14,6 +14,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Slider from '@mui/material/Slider';
 import ButtonGroup from '@mui/material/ButtonGroup';
+import LightModeIcon from '@mui/icons-material/LightMode';
 import { HexColorPicker } from "react-colorful";
 import Switch from '@mui/material/Switch';
 import {
@@ -36,13 +37,10 @@ const Bookmarks = () => {
   }, []);
 
   React.useEffect(() => {
-    chrome.storage.sync.set({ bookmarks }, () => {
-      console.log("saved");
-    });
+    saveBookmarks(bookmarks);
   }, [bookmarks]);
 
   React.useEffect(() => {
-    console.log("selected")
     if (selectedBookmark.notYetSelected !== true ) {
       for (let i = 0, l = bookmarks.length; i < l; i++) {
         if (bookmarks[i].uuid === selectedBookmark.uuid) {
@@ -55,6 +53,37 @@ const Bookmarks = () => {
     }
   }, [selectedBookmark])
 
+  const debounce = (func: any, wait: any) => {
+    var timeout: any;
+    let immediate = false;
+  
+    return (...args: any) => {
+      var context = this;
+  
+      var later = () => {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      };
+  
+      var callNow = immediate && !timeout;
+  
+      clearTimeout(timeout);
+  
+      timeout = setTimeout(later, wait);
+  
+      if (callNow) func.apply(context, args);
+    };
+  }
+
+  const saveBookmarks = React.useCallback(
+    debounce((bookmarks: any) => {
+      chrome.storage.sync.set({ bookmarks }, () => {
+        console.log("Saved bookmark config");
+      });
+    }, 500),
+    []
+  )
+
   const selectBookmark = (uuid: string) => {
     const bookmark = bookmarks.find((bookmark) => bookmark.uuid === uuid);
     setSelectedBookmark(bookmark)
@@ -62,6 +91,7 @@ const Bookmarks = () => {
 
   const handleBookmarkChange = (e: any) => {
     const { name, value } = e.target;
+    console.log(name, value);
     let newSelectedBookmark = {...selectedBookmark};
     newSelectedBookmark[name] = value;
     setSelectedBookmark(newSelectedBookmark);
@@ -92,6 +122,9 @@ const Bookmarks = () => {
       <Paper elevation={3} sx={{ width: "100%", height: "100%", paddingBottom: 2}}>
         <Stack direction="column" divider={<Divider orientation="horizontal" flexItem />} spacing={1}>
           <Box>
+            <Box sx={{position: "absolute", ml: 2, mt: 2.5}}>
+              <LightModeIcon />
+            </Box>
             <DragDropContext onDragEnd={(result) => onDragEnd(result)}>
               <Droppable droppableId="droppable" direction="horizontal">
                 {(provided) => (
@@ -118,7 +151,7 @@ const Bookmarks = () => {
                             >
                               <Button
                                 sx={{margin:1, marginTop:2, backgroundColor: "#ffe138", color: "#000000de", borderRadius: bookmark.radius, boxShadow: bookmark.boxShadow}}
-                                variant="contained"
+                                variant={bookmark.style}
                                 color="primary"
                                 component="a"
                                 onClick={() => selectBookmark(bookmark.uuid)}
@@ -190,8 +223,8 @@ const Bookmarks = () => {
                           Stil
                         </Typography>
                         <ButtonGroup disabled={disabled()} variant="contained" sx={{height: 30}} size="small" aria-label="outlined primary button group">
-                          <Button key="iflylld" >Ifylld</Button>
-                          <Button key="kontur" variant="outlined">Kontur</Button>
+                          <Button key="iflylld" onClick={handleBookmarkChange} name="style" value="contained" >Ifylld</Button>
+                          <Button key="kontur" onClick={handleBookmarkChange} name="style" value="outlined" variant="outlined">Kontur</Button>
                         </ButtonGroup>
                       </Stack>
                     </Box>

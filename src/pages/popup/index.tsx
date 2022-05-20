@@ -5,12 +5,13 @@ import Popup from "@pages/popup/Popup";
 import CssBaseline from '@mui/material/CssBaseline';
 import darkScrollbar from '@mui/material/darkScrollbar';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import {yellow} from '@mui/material/colors';
 
 const theme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#ffe138',
+      main: yellow[500],
     },
   },
 });
