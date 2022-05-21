@@ -16,6 +16,8 @@ import Slider from '@mui/material/Slider';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import { HexColorPicker } from "react-colorful";
+import Collapse from '@mui/material/Collapse';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 import {
   DragDropContext,
@@ -28,6 +30,8 @@ import TextField from "@mui/material/TextField";
 const Bookmarks = () => {
   const [bookmarks, setBookmarks] = React.useState<any[]>([]);
   const [selectedBookmark, setSelectedBookmark] = React.useState<any>({notYetSelected: true});
+  const [settings, setSettings] = React.useState<any>({notYetSelected: true});
+  const [color, setColor] = React.useState<any>("#ffe138")
 
   React.useEffect(() => {
     chrome.storage.sync.get(["bookmarks"], (result) => {
@@ -52,6 +56,16 @@ const Bookmarks = () => {
 
     }
   }, [selectedBookmark])
+
+  React.useEffect(() => {
+    if (selectedBookmark.notYetSelected == true) return;
+    if (color !== selectedBookmark.bgColor) {
+      let newSelectedBookmark = {...selectedBookmark}
+      newSelectedBookmark.bgColor = color
+      setSelectedBookmark(newSelectedBookmark);
+    }
+
+  }, [color])
 
   const debounce = (func: any, wait: any) => {
     var timeout: any;
@@ -84,14 +98,14 @@ const Bookmarks = () => {
     []
   )
 
-  const selectBookmark = (uuid: string) => {
+  const selectBookmark = (uuid: string, bgColor: string) => {
     const bookmark = bookmarks.find((bookmark) => bookmark.uuid === uuid);
-    setSelectedBookmark(bookmark)
+    setColor(bgColor);
+    setSelectedBookmark(bookmark);
   };
 
   const handleBookmarkChange = (e: any) => {
     const { name, value } = e.target;
-    console.log(name, value);
     let newSelectedBookmark = {...selectedBookmark};
     newSelectedBookmark[name] = value;
     setSelectedBookmark(newSelectedBookmark);
@@ -137,6 +151,13 @@ const Bookmarks = () => {
                     ref={provided.innerRef}
                   >
                     {bookmarks.map((bookmark, index) => {
+                      let buttonTheme = createTheme({ palette: { primary: { main: bookmark.bgColor } } });
+                      let buttonStyle = {
+                        margin:1,
+                        marginTop:2,
+                        borderRadius: bookmark.radius,
+                        boxShadow: bookmark.boxShadow
+                      }
                       return (
                         <Draggable
                           key={bookmark.uuid}
@@ -149,15 +170,17 @@ const Bookmarks = () => {
                               ref={provided.innerRef}
                               {...provided.dragHandleProps}
                             >
-                              <Button
-                                sx={{margin:1, marginTop:2, backgroundColor: "#ffe138", color: "#000000de", borderRadius: bookmark.radius, boxShadow: bookmark.boxShadow}}
-                                variant={bookmark.style}
-                                color="primary"
-                                component="a"
-                                onClick={() => selectBookmark(bookmark.uuid)}
-                              >
-                                {bookmark.title}
-                              </Button>
+                              <ThemeProvider theme={buttonTheme}>
+                                <Button
+                                  sx={buttonStyle}
+                                  variant={bookmark.style}
+                                  component="a"
+                                  color="primary"
+                                  onClick={() => selectBookmark(bookmark.uuid, bookmark.bgColor)}
+                                >
+                                  {bookmark.title}
+                                </Button>
+                              </ThemeProvider>
                             </div>
                           )}
                         </Draggable>
@@ -179,25 +202,6 @@ const Bookmarks = () => {
                   <Stack direction="column" spacing={1}>
                     <TextField id="title-field" disabled={disabled()} value={selectedBookmark.title ? selectedBookmark.title  : ""} onChange={handleBookmarkChange} label="Titel" name="title" variant="filled" size="small"/>
                     <TextField id="url-field" disabled={disabled()} value={selectedBookmark.url ? selectedBookmark.url  : ""} onChange={handleBookmarkChange} label="URL" name="url" variant="filled" size="small"/>
-                    <Divider/>
-                    <Box>
-                      <Stack direction="row" spacing={2}>
-                        <Stack direction="row" spacing={1}>
-                          <Typography variant="body1" component="span" sx={{marginBottom: 2, paddingTop: 0.5, textAlign: 'center'}}>
-                            Bakgrundsfärg
-                          </Typography>
-                          <Box sx={{backgroundColor: "#ffe138", width: 30, height: 30, borderRadius: 100}}>
-                          </Box>
-                        </Stack>
-                        <Stack direction="row" spacing={1}>
-                          <Typography variant="body1" component="span" sx={{marginBottom: 2, paddingTop: 0.5, textAlign: 'center'}}>
-                            Textfärg
-                          </Typography>
-                          <Box sx={{backgroundColor: "#000000de", width: 30, height: 30, borderRadius: 100}}>
-                          </Box>
-                        </Stack>
-                      </Stack>
-                    </Box>
                     <Divider/>
                     <Box sx={{width: "50%"}}>
                       <Stack direction="row" spacing={1}>
@@ -247,17 +251,19 @@ const Bookmarks = () => {
                     </Typography>
                     <Divider sx={{margin: 1}}/>
                     <FormGroup>
-                      <FormControlLabel control={<Checkbox />} defaultChecked label="Samma backgrundsfärg" />
-                      <FormControlLabel control={<Checkbox />} defaultChecked label="Samma textfärg" />
-                      <FormControlLabel control={<Checkbox />} defaultChecked label="Samma radius" />
-                      <FormControlLabel control={<Checkbox />} defaultChecked label="Samma höjd" />
+                      <FormControlLabel control={<Checkbox />} checked={settings.bgColor ? false : true} label="Samma backgrundsfärg" />
+                      <FormControlLabel control={<Checkbox />} checked={settings.radius ? false : true} label="Samma radius" />
+                      <FormControlLabel control={<Checkbox />} checked={settings.boxShadow ? false : true} label="Samma höjd" />
                     </FormGroup>
                   </Paper>
                   <Paper variant="outlined" sx={{padding: 2}}>
                     <Typography variant="h6" component="div" sx={{marginBottom: 2, textAlign: "center"}}>
-                      Anpassad CSS
+                      Bakgrundsfärg
                     </Typography>
                     <Divider/>
+                    <Collapse in={selectedBookmark.notYetSelected ? false : true}>
+                      <HexColorPicker color={color} onChange={setColor} style={{width: "100%", marginTop: 10, height: 118}}/>
+                    </Collapse>
                   </Paper>
                 </Stack>
               </Grid>
