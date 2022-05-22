@@ -30,7 +30,8 @@ import TextField from "@mui/material/TextField";
 const Bookmarks = () => {
   const [bookmarks, setBookmarks] = React.useState<any[]>([]);
   const [selectedBookmark, setSelectedBookmark] = React.useState<any>({notYetSelected: true});
-  const [settings, setSettings] = React.useState<any>({notYetSelected: true});
+/*   const [settings, setSettings] = React.useState<any>({notYetSelected: true}); */
+  const [settings, setSettings] = React.useState<any>({same: {bgColor: true, radius: true, boxShadow: true}});
   const [color, setColor] = React.useState<any>("#ffe138")
 
   React.useEffect(() => {
@@ -38,11 +39,28 @@ const Bookmarks = () => {
       setBookmarks(result.bookmarks);
       console.log(result.bookmarks);
     });
+    chrome.storage.sync.get(["bookmarksSettings"], (result) => {
+      if (Object.keys(result.bookmarksSettings).length === 0) {
+        const settings = {
+          bgColor: true,
+          radius: true,
+          boxShadow: true,
+        };
+        setSettings(settings);
+      } else {
+        setSettings(result.bookmarksSettings);
+      }
+      console.log(result.bookmarksSettings);
+    })
   }, []);
 
   React.useEffect(() => {
     saveBookmarks(bookmarks);
   }, [bookmarks]);
+
+  React.useEffect(() => {
+    saveSettings(settings);
+  }, [settings]);
 
   React.useEffect(() => {
     if (selectedBookmark.notYetSelected !== true ) {
@@ -59,10 +77,29 @@ const Bookmarks = () => {
 
   React.useEffect(() => {
     if (selectedBookmark.notYetSelected == true) return;
+    
+    if (color.length < 4) return;
+    if (color[0] !== '#') return;
+    
+    const allowed = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+    for (let i = 1, l = color.length; i < l; i++) {
+      if (allowed.indexOf(color[i].toLowerCase()) === -1) return;
+    }
+
+
+
     if (color !== selectedBookmark.bgColor) {
-      let newSelectedBookmark = {...selectedBookmark}
-      newSelectedBookmark.bgColor = color
-      setSelectedBookmark(newSelectedBookmark);
+      if (settings.same.bgColor === true) {
+        let newBookmarks = [...bookmarks]
+        for (let i = 0, l = bookmarks.length; i < l; i++) {
+          newBookmarks[i].bgColor = color
+        }
+        setBookmarks(newBookmarks);
+      } else {
+        let newSelectedBookmark = {...selectedBookmark}
+        newSelectedBookmark.bgColor = color
+        setSelectedBookmark(newSelectedBookmark);
+      }
     }
 
   }, [color])
@@ -98,18 +135,49 @@ const Bookmarks = () => {
     []
   )
 
+  const saveSettings = React.useCallback(
+    debounce((settings: any) => {
+      chrome.storage.sync.set({ bookmarksSettings: settings }, () => {
+        console.log("Saved bookmark settings");
+      });
+    }, 200),
+    []
+  )
+
   const selectBookmark = (uuid: string, bgColor: string) => {
     const bookmark = bookmarks.find((bookmark) => bookmark.uuid === uuid);
     setColor(bgColor);
     setSelectedBookmark(bookmark);
   };
 
+  const handleSettingsChange = (e: any) => {
+    const { name, checked } = e.target;
+    let newSettings = {...settings}
+    newSettings.same[name] = checked
+    setSettings(newSettings);
+  }
+
   const handleBookmarkChange = (e: any) => {
     const { name, value } = e.target;
-    let newSelectedBookmark = {...selectedBookmark};
-    newSelectedBookmark[name] = value;
-    setSelectedBookmark(newSelectedBookmark);
+    if (settings.same[name] === true) {
+      let newBookmarks = [...bookmarks]
+      for (let i = 0; i < newBookmarks.length; i++) {
+        newBookmarks[i][name] = value;
+      }
+      setBookmarks(newBookmarks);
+    } else {
+      let newSelectedBookmark = {...selectedBookmark};
+      newSelectedBookmark[name] = value;
+      setSelectedBookmark(newSelectedBookmark);
+    }
   };
+
+  const removeCurrrentBookmark = (uuid: string) => {
+    let newBookmarks = [...bookmarks];
+    newBookmarks = newBookmarks.filter((bookmark) => bookmark.uuid !== uuid);
+    setSelectedBookmark({notYetSelected: true});
+    setBookmarks(newBookmarks);
+  }
 
   const disabled = () => {
     if (selectedBookmark.notYetSelected === true) {
@@ -206,6 +274,15 @@ const Bookmarks = () => {
                     <Box sx={{width: "50%"}}>
                       <Stack direction="row" spacing={1}>
                         <Typography variant="body1" component="span" sx={{marginBottom: 2, paddingTop: 0.5, textAlign: 'center'}}>
+                          Bakgrundsfärg
+                        </Typography>
+                        <TextField disabled={disabled()} inputProps={{ maxLength: 7 }} value={color} onChange={(e) => setColor(e.target.value)} name="bgColor" size="small" />
+                      </Stack>
+                    </Box>
+                    <Divider/>
+                    <Box sx={{width: "50%"}}>
+                      <Stack direction="row" spacing={1}>
+                        <Typography variant="body1" component="span" sx={{marginBottom: 2, paddingTop: 0.5, textAlign: 'center'}}>
                           Radius
                         </Typography>
                         <Slider disabled={disabled()} value={selectedBookmark.radius ? selectedBookmark.radius : 0} name="radius" onChange={handleBookmarkChange} step={1} marks min={0} max={5} size="small" />
@@ -235,7 +312,7 @@ const Bookmarks = () => {
                     <Divider/>
                     <Box sx={{width: "50%"}}>
                       <Stack direction="row" spacing={1}>
-                        <Button disabled={disabled()} variant="outlined" color="error" size="small">
+                        <Button disabled={disabled()} onClick={() => removeCurrrentBookmark(selectedBookmark.uuid)} variant="outlined" color="error" size="small">
                           Ta bort bokmärke
                         </Button>
                       </Stack>
@@ -251,9 +328,9 @@ const Bookmarks = () => {
                     </Typography>
                     <Divider sx={{margin: 1}}/>
                     <FormGroup>
-                      <FormControlLabel control={<Checkbox />} checked={settings.bgColor ? false : true} label="Samma backgrundsfärg" />
-                      <FormControlLabel control={<Checkbox />} checked={settings.radius ? false : true} label="Samma radius" />
-                      <FormControlLabel control={<Checkbox />} checked={settings.boxShadow ? false : true} label="Samma höjd" />
+                      <FormControlLabel control={<Checkbox />} onChange={handleSettingsChange} name="bgColor" checked={settings.same.bgColor} label="Samma backgrundsfärg" />
+                      <FormControlLabel control={<Checkbox />} onChange={handleSettingsChange} name="radius" checked={settings.same.radius} label="Samma radius" />
+                      <FormControlLabel control={<Checkbox />} onChange={handleSettingsChange} name="boxShadow" checked={settings.same.boxShadow} label="Samma höjd" />
                     </FormGroup>
                   </Paper>
                   <Paper variant="outlined" sx={{padding: 2}}>
@@ -262,7 +339,7 @@ const Bookmarks = () => {
                     </Typography>
                     <Divider/>
                     <Collapse in={selectedBookmark.notYetSelected ? false : true}>
-                      <HexColorPicker color={color} onChange={setColor} style={{width: "100%", marginTop: 10, height: 118}}/>
+                      <HexColorPicker color={color} onChange={setColor} style={{width: "100%", marginTop: 10, height: 158}}/>
                     </Collapse>
                   </Paper>
                 </Stack>
