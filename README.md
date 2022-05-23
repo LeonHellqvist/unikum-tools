@@ -22,7 +22,7 @@
     <br />
     Ett tillägg som gör Unikum trevligare att använda
     <br />
-    <a href="https://github.com/LeonHellqvist/unikum-tools"><strong>Utforska dokumentationen »</strong></a>
+    <a href="https://chrome.google.com/webstore/category/extensions"><strong>Chrome Web Store » </strong></a><a href="https://addons.mozilla.org/sv-SE/firefox/"><strong>Firefox Addons</strong></a>
     <br />
     <br />
     <a href="https://youtube.com">Visa demo</a>
@@ -98,7 +98,7 @@ Om du inte redan har NPM, så kan du installera det genom att köra:
 
 ### Installation
 
-1. Clone the repo
+1. Klona den här repon
    ```sh
    git clone https://github.com/LeonHellqvist/unikum-tools.git
    ```
