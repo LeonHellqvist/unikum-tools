@@ -1,31 +1,8 @@
 import React from "react";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Stack from "@mui/material/Stack";
-import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
 import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
-import Container from "@mui/material/Container";
 import "./App.css";
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Slider from '@mui/material/Slider';
-import ButtonGroup from '@mui/material/ButtonGroup';
-import LightModeIcon from '@mui/icons-material/LightMode';
-import { HexColorPicker } from "react-colorful";
-import Collapse from '@mui/material/Collapse';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import Switch from '@mui/material/Switch';
-import {
-  DragDropContext,
-  Droppable,
-  Draggable,
-  DropResult,
-} from "react-beautiful-dnd";
-import TextField from "@mui/material/TextField";
 
 const App = () => {
   const [bookmarks, setBookmarks] = React.useState<any[]>([]);

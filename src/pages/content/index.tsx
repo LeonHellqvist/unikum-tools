@@ -1,7 +1,4 @@
-import React from "react";
 import { createRoot } from "react-dom/client";
-import CssBaseline from '@mui/material/CssBaseline';
-import darkScrollbar from '@mui/material/darkScrollbar';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import {yellow} from '@mui/material/colors';
 import App from "./App"

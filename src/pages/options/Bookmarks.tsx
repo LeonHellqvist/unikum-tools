@@ -5,7 +5,6 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Container from "@mui/material/Container";
@@ -18,7 +17,6 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import { HexColorPicker } from "react-colorful";
 import Collapse from '@mui/material/Collapse';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import Switch from '@mui/material/Switch';
 import {
   DragDropContext,
   Droppable,
