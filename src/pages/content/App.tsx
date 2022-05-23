@@ -6,26 +6,12 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 const App = () => {
   const [bookmarks, setBookmarks] = React.useState<any[]>([]);
-  const [settings, setSettings] = React.useState<any>({same: {bgColor: true, radius: true, boxShadow: true}});
 
   React.useEffect(() => {
     chrome.storage.sync.get(["bookmarks"], (result) => {
       setBookmarks(result.bookmarks);
       console.log(result.bookmarks);
     });
-    chrome.storage.sync.get(["bookmarksSettings"], (result) => {
-      if (Object.keys(result.bookmarksSettings).length === 0) {
-        const settings = {
-          bgColor: true,
-          radius: true,
-          boxShadow: true,
-        };
-        setSettings(settings);
-      } else {
-        setSettings(result.bookmarksSettings);
-      }
-      console.log(result.bookmarksSettings);
-    })
   }, []);
 
   chrome.storage.onChanged.addListener(function (changes) {
