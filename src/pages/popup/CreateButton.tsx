@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 import "./Popup.css";
 
 interface CreateButtonProps {
@@ -15,12 +15,6 @@ const CreateButton = ({ setPage }: CreateButtonProps) => {
 
   const openOptions = () => {
     chrome.runtime.openOptionsPage();
-  };
-
-  const getBookMarks = () => {
-    chrome.storage.sync.get("bookmarks", function (result) {
-      console.log(result);
-    });
   };
 
   const bookMark = () => {
@@ -45,28 +39,38 @@ const CreateButton = ({ setPage }: CreateButtonProps) => {
           found = false;
         }
         if (!found) {
-          const uuid = uuidv4()
+          const uuid = uuidv4();
           const newBookmark = {
             url: tabs[0].url,
-            title: title, 
+            title: title,
             uuid: uuid,
-            bgColor: "#ffe138",
-            txtColor: "#000000de",
-            borderRadius: 1,
-            boxShadow: 3,
-            style: "contained",
-          }
+            bgColor:
+              result.bookmarks.length !== 0
+                ? result.bookmarks[result.bookmarks.length - 1].bgColor
+                : "#ffe138",
+            borderRadius:
+              result.bookmarks.length !== 0
+                ? result.bookmarks[result.bookmarks.length - 1].borderRadius
+                : 1,
+            boxShadow:
+              result.bookmarks.length !== 0
+                ? result.bookmarks[result.bookmarks.length - 1].boxShadow
+                : 3,
+            style:
+              result.bookmarks.length !== 0
+                ? result.bookmarks[result.bookmarks.length - 1].style
+                : "contained",
+          };
           if (result.bookmarks !== undefined) {
             chrome.storage.sync.set({
-              bookmarks: [
-                ...result.bookmarks,
-                newBookmark,
-              ],
+              bookmarks: [...result.bookmarks, newBookmark],
             });
+            window.close();
           } else {
             chrome.storage.sync.set({
               bookmarks: [newBookmark],
             });
+            window.close();
           }
           return;
         } else {
@@ -77,6 +81,7 @@ const CreateButton = ({ setPage }: CreateButtonProps) => {
           let newBookmarks = result.bookmarks;
           newBookmarks[foundNr].title = title;
           chrome.storage.sync.set({ bookmarks: newBookmarks });
+          window.close();
         }
       });
     });

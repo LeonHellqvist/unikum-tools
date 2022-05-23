@@ -25,22 +25,6 @@ import CreateButton from './CreateButton';
 const Popup = () => {
   const [page, setPage] = React.useState(0);
 
-  /* React.useEffect(() =>{
-    chrome.storage.sync.set({page: page}, function() {
-      console.log('Value is set to ' + page);
-    });
-  }, [page]) */
-
-  const save = () => {
-    chrome.storage.sync.set({lol: "bruh"}, function() {
-      console.log('Value is set to ' + "bruh");
-    });
-  }
-  const load = () => {
-    chrome.storage.sync.get('lol', function(result) {
-      console.log('Value is  ' + result.lol);
-    });
-  }
   if (page === 0) {
     return (  
         <div className="App">
@@ -56,7 +40,7 @@ const Popup = () => {
                       <ListItemText primary="Bokmärk" />
                     </ListItemButton>
                   </ListItem>
-                  <ListItem disablePadding onClick={() => save()}>
+                  <ListItem disablePadding>
                     <ListItemButton>
                       <ListItemIcon>
                         <DarkModeIcon color="primary"/>
@@ -68,7 +52,7 @@ const Popup = () => {
               </nav>
               <nav aria-label="main mailbox folders">
                 <List>
-                  <ListItem disablePadding onClick={() => load()}>
+                  <ListItem disablePadding>
                     <ListItemButton>
                       <ListItemIcon>
                         <DashboardIcon color="primary" />

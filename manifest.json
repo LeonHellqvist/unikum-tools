@@ -7,6 +7,22 @@
   "action": {
     "default_popup": "popup.html"
   },
+  "content_scripts": [
+    {
+      "matches": ["https://start.unikum.net/*"],
+      "js": [
+        "src/pages/content/index.tsx"
+      ],
+      "css": [
+        "src/pages/content/App.css"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [{
+      "resources": ["src/pages/content/App.css"],
+      "matches": ["https://start.unikum.net/*"]
+  }],
   "permissions": [
     "storage",
     "tabs"
