@@ -1,7 +1,7 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import Options from "@pages/options/Options";
-import "@pages/options/index.css";
+import Options from "./Options";
+import "./index.css";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import {yellow} from '@mui/material/colors';

@@ -4,7 +4,7 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { v4 as uuidv4 } from 'uuid';
-import "@pages/popup/Popup.css";
+import "./Popup.css";
 
 interface CreateButtonProps {
   setPage: (params: any) => any;

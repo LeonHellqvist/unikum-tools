@@ -15,7 +15,7 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import SettingsIcon from '@mui/icons-material/Settings';
 import DraftsIcon from '@mui/icons-material/Drafts';
-import "@pages/popup/Popup.css";
+import "./Popup.css";
 import '@fontsource/roboto/400.css';
 
 import CreateButton from './CreateButton';

@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "Unikum tools",
+  "version": "0.0.1",
+  "description": "Gör Unikum trevligare att använda",
+  "options_page": "options.html",
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "storage",
+    "tabs"
+  ]
+}

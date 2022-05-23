@@ -1,5 +1,5 @@
 import React from "react";
-import "@pages/options/Options.css";
+import "./Options.css";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
