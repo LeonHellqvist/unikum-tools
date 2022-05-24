@@ -1,0 +1,81 @@
+#main, .title-section, .body-padding {
+  background-color: #121212 !important;
+}
+
+#__app-top-bar h3 {
+  color: #fff !important;
+}
+
+#subnav a {
+  color: #fff !important;
+}
+
+.mainheader, .MuiGrid-root, #canvas {
+  background-color: #272727 !important;
+}
+
+.supportnav__subnav {
+  background-color: #252525 !important;
+}
+
+#maincontent {
+  min-height: unset !important;
+}
+
+.subnav__scrollindicator, .mainheader__scrollindicator {
+  display: none !important;
+}
+
+#__app-side-bar div {
+  background-color: #252525 !important;
+}
+
+.name {
+  color: white !important;
+}
+
+.mainheader__nav  li:hover {
+  background-color: #272727 !important;
+}
+
+.icon {
+  color: white !important;
+}
+
+.title-section h1 {
+  color: white !important;
+}
+
+.title-section small {
+  color: white !important;
+}
+
+.panel, .panel-footer {
+  background-color: #252525 !important;
+  color: white !important;
+  border-color: #383838 !important;
+}
+
+.panel-footer a {
+  color: #BDD7E7 !important;
+}
+
+a:hover {
+  color: #BDD7E7 !important;
+}
+
+.meta, .title {
+  color: white !important;
+}
+
+.uk-item {
+  border-color: #383838 !important;
+}
+
+.uk-item a div {
+  color: white !important;
+}
+
+.uk-item:hover {
+  background-color: #383838 !important;
+}
