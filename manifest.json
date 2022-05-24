@@ -11,16 +11,16 @@
     {
       "matches": ["https://start.unikum.net/*"],
       "js": [
-        "src/pages/content/index.tsx"
+        "src/pages/content/unikum.tsx"
       ],
       "css": [
-        "src/pages/content/App.css"
+        "src/pages/content/buttons.css"
       ],
       "run_at": "document_end"
     }
   ],
   "web_accessible_resources": [{
-      "resources": ["src/pages/content/App.css"],
+      "resources": ["src/pages/content/buttons.css"],
       "matches": ["https://start.unikum.net/*"]
   }],
   "permissions": [
