@@ -1,7 +1,9 @@
+import React from "react";
 import { createRoot } from "react-dom/client";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import {yellow} from '@mui/material/colors';
-import App from "./App"
+import Buttons from "./Buttons"
+
 
 const theme = createTheme({
   palette: {
@@ -19,7 +21,7 @@ function init() {
   root.render(
     <ThemeProvider theme={theme}>
       
-      <App/>
+      <Buttons/>
     </ThemeProvider>
   );
 }

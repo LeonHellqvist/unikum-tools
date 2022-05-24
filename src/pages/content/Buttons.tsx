@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
-import "./App.css";
+import "./buttons.css";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 const App = () => {
@@ -24,7 +24,7 @@ const App = () => {
 
   return (
     <Grid
-      sx={{ marginLeft: 4, marginTop: 1, marginBottom: -1 }}
+      sx={{ marginLeft: 4, marginTop: 0, marginBottom: -1.5 }}
       container
       justifyContent="left"
       alignItems="center"
