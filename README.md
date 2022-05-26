@@ -134,10 +134,10 @@ _För mer exempel, kolla in [demo](https://youtube.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ Nattläge ]
+- [ Schema ] Kunna se sitt egna schema
+- [ Nattläge ] Kunna byta tema till nattläge
     - [ Unikum ]
     - [ Lärknuten ]
-- [ Layout byte ]
 
 Se [öppna issues](https://github.com/LeonHellqvist/unikum-tools/issues) för en full lista av föreslagna funktioner (och kända problem).
 
