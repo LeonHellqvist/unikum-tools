@@ -34,7 +34,7 @@ const Bookmarks = () => {
 
   React.useEffect(() => {
     chrome.storage.sync.get(["bookmarks"], (result) => {
-      if (Object.keys(bookmarks).length === 0) {
+      if (Object.keys(result.bookmarks).length === 0) {
         setBookmarks([]);
       } else {
         setBookmarks(result.bookmarks);
