@@ -9,6 +9,8 @@ import BookmarksIcon from '@mui/icons-material/Bookmarks';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import SettingsIcon from '@mui/icons-material/Settings';
+import LocalDiningIcon from '@mui/icons-material/LocalDining';
+import EventNoteIcon from '@mui/icons-material/EventNote';
 import "./Popup.css";
 import '@fontsource/roboto/400.css';
 
@@ -42,6 +44,14 @@ const Popup = () => {
                       <ListItemText primary="Nattläge" />
                     </ListItemButton>
                   </ListItem>
+                  <ListItem disablePadding>
+                    <ListItemButton>
+                      <ListItemIcon>
+                        <DashboardIcon color="primary" />
+                      </ListItemIcon>
+                      <ListItemText primary="Layout" />
+                    </ListItemButton>
+                  </ListItem>
                 </List>
               </nav>
               <nav aria-label="main mailbox folders">
@@ -49,9 +59,17 @@ const Popup = () => {
                   <ListItem disablePadding>
                     <ListItemButton>
                       <ListItemIcon>
-                        <DashboardIcon color="primary" />
+                        <EventNoteIcon color="primary" />
                       </ListItemIcon>
-                      <ListItemText primary="Layout" />
+                      <ListItemText primary="Schema" />
+                    </ListItemButton>
+                  </ListItem>
+                  <ListItem disablePadding>
+                    <ListItemButton>
+                      <ListItemIcon>
+                        <LocalDiningIcon color="primary" />
+                      </ListItemIcon>
+                      <ListItemText primary="Matsedel" />
                     </ListItemButton>
                   </ListItem>
                   <ListItem disablePadding>
