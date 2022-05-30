@@ -134,6 +134,7 @@ _För mer exempel, kolla in [demo](https://youtube.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
+- [ Matsedel ] Kunna se matsedeln och dagens mat
 - [ Schema ] Kunna se sitt egna schema
 - [ Nattläge ] Kunna byta tema till nattläge
     - [ Unikum ]
