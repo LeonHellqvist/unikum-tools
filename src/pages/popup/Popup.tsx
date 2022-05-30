@@ -15,6 +15,7 @@ import "./Popup.css";
 import '@fontsource/roboto/400.css';
 
 import CreateButton from './CreateButton';
+import Food from './Food';
 
 
 
@@ -64,7 +65,7 @@ const Popup = () => {
                       <ListItemText primary="Schema" />
                     </ListItemButton>
                   </ListItem>
-                  <ListItem disablePadding>
+                  <ListItem disablePadding onClick={() => setPage(1)}>
                     <ListItemButton>
                       <ListItemIcon>
                         <LocalDiningIcon color="primary" />
@@ -92,6 +93,12 @@ const Popup = () => {
   if (page === 1) {
     return (
       <CreateButton setPage={setPage}></CreateButton>
+    );
+  }
+
+  if (page === 4) {
+    return (
+      <Food setPage={setPage}></Food>
     );
   }
 
