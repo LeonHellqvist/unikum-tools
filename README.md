@@ -22,7 +22,7 @@
     <br />
     Ett tillägg som gör Unikum trevligare att använda
     <br />
-    <a href="https://chrome.google.com/webstore/category/extensions"><strong>Chrome Web Store » </strong></a><a href="https://addons.mozilla.org/sv-SE/firefox/"><strong>Firefox Addons</strong></a>
+    <a href="https://chrome.google.com/webstore/category/extensions"><strong>Chrome Web Store » </strong></a><a href="https://addons.mozilla.org/sv-SE/firefox/"><strong>Firefox Addons (stöds inte än)</strong></a>
     <br />
     <br />
     <a href="https://youtube.com">Visa demo</a>
@@ -67,7 +67,7 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-Unikum Tools är ett tillägg för både Chrome och Firefox som gör att du kan använda Unikum på ett trevligare sätt.
+Unikum Tools är ett tillägg för både Chrome och Firefox (stöds inte än) som gör att du kan använda Unikum på ett trevligare sätt.
 
 <p align="right">(<a href="#top">Tillbaka till toppen</a>)</p>
 
@@ -112,7 +112,7 @@ Om du inte redan har NPM, så kan du installera det genom att köra:
    ```
 4. Importera tillägget till din webbläsare. (Från "dist" mappen)<br />
   [Chrome](https://developer.chrome.com/docs/extensions/mv3/getstarted/#unpacked)<br />
-  [Firefox](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Your_first_WebExtension#installing)
+  [Firefox (stöds inte än)](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Your_first_WebExtension#installing)
 
 <p align="right">(<a href="#top">Tillbaka till toppen</a>)</p>
 
@@ -139,6 +139,7 @@ _För mer exempel, kolla in [demo](https://youtube.com)_
 - [ Nattläge ] Kunna byta tema till nattläge
     - [ Unikum ]
     - [ Lärknuten ]
+- [ Firefox stöd ] Väntar på Firefox då detta inte kan fixas av oss se [Bugzilla](https://bugzilla.mozilla.org/show_bug.cgi?id=1247687)
 
 Se [öppna issues](https://github.com/LeonHellqvist/unikum-tools/issues) för en full lista av föreslagna funktioner (och kända problem).
 
@@ -156,9 +157,9 @@ Glöm inte att ge projektet en stjärna, tack så mycket!
 
 1. Forka projektet
 2. Skapa din funktions Branch (`git checkout -b funktion/OtroligFunktion`)
-3. Commit your Changes (`git commit -m 'Lägg till nån OtroligFunktion'`)
-4. Push to the Branch (`git push origin funktion/OtroligFunktion`)
-5. Open a Pull Request
+3. Committa dina ändringar (`git commit -m 'Lägg till nån OtroligFunktion'`)
+4. Pusha branchen (`git push origin funktion/OtroligFunktion`)
+5. Öppna en pull request
 
 <p align="right">(<a href="#top">Tillbaka till toppen</a>)</p>
 
