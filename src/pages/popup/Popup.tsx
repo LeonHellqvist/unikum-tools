@@ -65,7 +65,7 @@ const Popup = () => {
                       <ListItemText primary="Schema" />
                     </ListItemButton>
                   </ListItem>
-                  <ListItem disablePadding onClick={() => setPage(1)}>
+                  <ListItem disablePadding onClick={() => setPage(4)}>
                     <ListItemButton>
                       <ListItemIcon>
                         <LocalDiningIcon color="primary" />
