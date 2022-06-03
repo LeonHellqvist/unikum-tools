@@ -77,6 +77,7 @@ Unikum Tools är ett tillägg för både Chrome och Firefox (stöds inte än) so
 
 * [React.js](https://reactjs.org/)
 * [Vite](https://vitejs.dev/)
+* [CRXJS Vite plugin](https://crxjs.dev/vite-plugin/)
 * [MUI](https://mui.com/)
 
 <p align="right">(<a href="#top">Tillbaka till toppen</a>)</p>
