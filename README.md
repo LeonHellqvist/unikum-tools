@@ -102,9 +102,9 @@ Om du inte redan har NPM, så kan du installera det genom att köra:
    ```sh
    git clone https://github.com/LeonHellqvist/unikum-tools.git
    ```
-2. Installera NPM paket
+2. Installera NPM paket (Finns konflikter just nu pga ny React version (18))
    ```sh
-   npm install
+   npm install --force
    ```
 3. Starta utvecklingsmiljön
    ```sh
