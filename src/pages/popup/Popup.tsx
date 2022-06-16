@@ -15,7 +15,7 @@ import "./Popup.css";
 import '@fontsource/roboto/400.css';
 
 import CreateButton from './CreateButton';
-import Food from './Food';
+import Food from './food/Food';
 
 
 
