@@ -34,7 +34,7 @@ const Food = ({ list }: FoodListProps) => {
           <Zoom in={true} style={{ transitionDelay: `${index * 200}ms` }}>
             <Paper key={index} sx={{padding: 1}}>
               <Typography gutterBottom variant="h6" component="div">
-                {item.title}
+                {item.title.split(" - ")[0]}
               </Typography>
               {item.description.split("<br/>").map((item: any, index: any) => {
                 return (

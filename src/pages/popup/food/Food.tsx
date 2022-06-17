@@ -2,7 +2,9 @@ import React from "react";
 import "../Popup.css";
 import "../index.css";
 import FoodList from "./FoodList"
-
+import Button from "@mui/material/Button";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import Box from "@mui/material/Box";
 
 interface CreateButtonProps {
   setPage: (params: any) => any;
@@ -23,6 +25,14 @@ const Food = ({ setPage }: CreateButtonProps) => {
   return (
     <div className="App">
       <FoodList list={rss}/>
+      <Box sx={{position: "fixed", top: 148}}>
+        <Button
+          disableElevation
+          onClick={() => setPage(0)}
+        >
+          <ArrowBackIcon />
+        </Button>
+      </Box>
     </div>
   );
 };
