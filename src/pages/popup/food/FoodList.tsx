@@ -3,6 +3,7 @@ import "../Popup.css";
 import Stack from '@mui/material/Stack';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import Zoom from '@mui/material/Zoom';
 import "./hideScroll.css";
 
 
@@ -30,18 +31,20 @@ const Food = ({ list }: FoodListProps) => {
     >
       {list.map((item: any, index: any) => {
         return (
-          <Paper key={index} sx={{padding: 1}}>
-            <Typography gutterBottom variant="h6" component="div">
-              {item.title}
-            </Typography>
-            {item.description.split("<br/>").map((item: any, index: any) => {
-              return (
-                <Typography key={index} variant="body1" component="div">
-                  {item}
-                </Typography>
-              )
-            })}
-          </Paper>
+          <Zoom in={true} style={{ transitionDelay: `${index * 200}ms` }}>
+            <Paper key={index} sx={{padding: 1}}>
+              <Typography gutterBottom variant="h6" component="div">
+                {item.title}
+              </Typography>
+              {item.description.split("<br/>").map((item: any, index: any) => {
+                return (
+                  <Typography key={index} variant="body1" component="div">
+                    {item}
+                  </Typography>
+                )
+              })}
+            </Paper>
+          </Zoom>
         );
       })}
     </Stack>
