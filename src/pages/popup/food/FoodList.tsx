@@ -1,29 +1,45 @@
 import React from "react";
 import "../Popup.css";
-import Stack from '@mui/material/Stack';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
-import Zoom from '@mui/material/Zoom';
+import Stack from "@mui/material/Stack";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import Zoom from "@mui/material/Zoom";
 import "./hideScroll.css";
 
+interface Meal {
+  attributes: any[];
+  value: string;
+}
 
-interface FoodListProps {
+interface Day {
+  day: number;
+  month: number;
+  meals?: Meal[];
+  reason?: string;
+  year: number;
+}
+
+interface Days {
   list: {
+    [index: number]: Day[];
     map: any;
-    media: any[];
-    id: string;
-    title: string;
-    link: string;
-    description: string;
-    pubDate: Date;
   };
 }
 // pass prop "setPage" to button with typescript
-const Food = ({ list }: FoodListProps) => {
+const Food = ({ list }: Days) => {
+  const [bruh, setBruh] = React.useState(list);
+
+  React.useEffect(() => {
+    console.log(bruh);
+  }, [bruh]);
+
+  React.useEffect(() => {
+    console.log("buhfauidfhsa");
+  }, []);
 
   return (
     <Stack
-      sx={{height: "180px", overflowY: "scroll"}}
+      sx={{ height: "100%", paddingTop: 5, paddingBottom: 5, overflowY: "scroll" }}
       direction="column"
       justifyContent="flex-start"
       alignItems="stretch"
@@ -32,23 +48,29 @@ const Food = ({ list }: FoodListProps) => {
       {list.map((item: any, index: any) => {
         return (
           <Zoom in={true} style={{ transitionDelay: `${index * 200}ms` }}>
-            <Paper key={index} sx={{padding: 1}}>
+            <Paper key={index} sx={{ padding: 1 }} elevation={4}>
               <Typography gutterBottom variant="h6" component="div">
-                {item.title.split(" - ")[0]}
+                {item.day}
               </Typography>
-              {item.description.split("<br/>").map((item: any, index: any) => {
-                return (
-                  <Typography key={index} variant="body1" component="div">
-                    {item}
-                  </Typography>
-                )
-              })}
+              {item.meals ? (
+                item.meals.map((item: any, index: any) => {
+                  return (
+                    <Typography key={index} variant="body1" component="div">
+                      {item.value}
+                    </Typography>
+                  );
+                })
+              ) : (
+                <Typography key={index} variant="body1" component="div">
+                  {item.reason}
+                </Typography>
+              )}
             </Paper>
           </Zoom>
         );
       })}
     </Stack>
-  )
+  );
 };
 
 export default Food;
