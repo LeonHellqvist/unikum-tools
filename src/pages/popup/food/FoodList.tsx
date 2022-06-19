@@ -19,19 +19,32 @@ interface Day {
   year: number;
 }
 
-interface Days {
+interface Week {
+  [index: number]: Day[];
+  map: any;
+}
+
+interface List {
   list: {
-    [index: number]: Day[];
-    map: any;
+    week: Week;
+    scrollTo: number;
   };
 }
 // pass prop "setPage" to button with typescript
-const Food = ({ list }: Days) => {
-  const [bruh, setBruh] = React.useState(list);
+const Food = ({ list }: List) => {
+  const elRef = React.useRef<HTMLInputElement>(null);
 
   React.useEffect(() => {
-    console.log(bruh);
-  }, [bruh]);
+    const timer = setTimeout(() => {
+      if (elRef.current) {
+        elRef.current.scrollIntoView({
+          behavior: "smooth",
+        });
+      }
+    }, 200);
+    return () => clearTimeout(timer);
+    
+  }, [list]);
 
   React.useEffect(() => {
     console.log("buhfauidfhsa");
@@ -45,28 +58,30 @@ const Food = ({ list }: Days) => {
       alignItems="stretch"
       spacing={2}
     >
-      {list.map((item: any, index: any) => {
+      {list.week.map((item: any, index: any) => {
         return (
-          <Zoom in={true} style={{ transitionDelay: `${index * 200}ms` }}>
-            <Paper key={index} sx={{ padding: 1 }} elevation={4}>
-              <Typography gutterBottom variant="h6" component="div">
-                {item.day}
-              </Typography>
-              {item.meals ? (
-                item.meals.map((item: any, index: any) => {
-                  return (
-                    <Typography key={index} variant="body1" component="div">
-                      {item.value}
-                    </Typography>
-                  );
-                })
-              ) : (
-                <Typography key={index} variant="body1" component="div">
-                  {item.reason}
+          <div key={index} {...(list.scrollTo == index ? {ref: elRef} : null)} style={{scrollMargin: 40}}>
+            <Zoom in={true} style={{ transitionDelay: `${index * 200}ms` }}>
+              <Paper sx={{ padding: 1 }} elevation={4}>
+                <Typography gutterBottom variant="h6" component="div">
+                  {item.day}
                 </Typography>
-              )}
-            </Paper>
-          </Zoom>
+                {item.meals ? (
+                  item.meals.map((item: any, index: any) => {
+                    return (
+                      <Typography key={index} variant="body1" component="div">
+                        {item.value}
+                      </Typography>
+                    );
+                  })
+                ) : (
+                  <Typography key={index} variant="body1" component="div">
+                    {item.reason}
+                  </Typography>
+                )}
+              </Paper>
+            </Zoom>
+          </div>
         );
       })}
     </Stack>
