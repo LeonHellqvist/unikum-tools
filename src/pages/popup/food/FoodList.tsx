@@ -4,6 +4,7 @@ import Stack from "@mui/material/Stack";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Zoom from "@mui/material/Zoom";
+import { weekNumber } from 'weeknumber'
 import "./hideScroll.css";
 
 interface Meal {
@@ -29,29 +30,41 @@ interface List {
     week: Week;
     scrollTo: number;
   };
+  week: number;
 }
 // pass prop "setPage" to button with typescript
-const Food = ({ list }: List) => {
+const Food = ({ list, week }: List) => {
+  const stackRef = React.useRef<HTMLInputElement>(null)
   const elRef = React.useRef<HTMLInputElement>(null);
+  const currentWeek = weekNumber(new Date());
 
   React.useEffect(() => {
     const timer = setTimeout(() => {
       if (elRef.current) {
-        elRef.current.scrollIntoView({
-          behavior: "smooth",
-        });
+        if (currentWeek == week) {
+          elRef.current.scrollIntoView({
+            behavior: "smooth",
+          });
+        } else {
+          if (stackRef.current) {
+            stackRef.current.scrollTo({top: 0, behavior: "smooth"});
+          }
+        }
       }
     }, 200);
     return () => clearTimeout(timer);
     
   }, [list]);
 
-  React.useEffect(() => {
-    console.log("buhfauidfhsa");
-  }, []);
+  const shouldBeSelected = (index: number) => {
+    if (currentWeek != week) return false;
+    if (list.scrollTo != index) return false;
+    return true;
+  }
 
   return (
     <Stack
+      ref={stackRef}
       sx={{ height: "100%", paddingTop: 5, paddingBottom: 5, overflowY: "scroll" }}
       direction="column"
       justifyContent="flex-start"
@@ -62,7 +75,7 @@ const Food = ({ list }: List) => {
         return (
           <div key={index} {...(list.scrollTo == index ? {ref: elRef} : null)} style={{scrollMargin: 40}}>
             <Zoom in={true} style={{ transitionDelay: `${index * 200}ms` }}>
-              <Paper sx={{ padding: 1 }} elevation={4}>
+              <Paper sx={{ padding: 1, textAlign: "left"}} {...(shouldBeSelected(index) ? {elevation: 20} : {elevation: 4})}>
                 <Typography gutterBottom variant="h6" component="div">
                   {item.day}
                 </Typography>
@@ -76,7 +89,7 @@ const Food = ({ list }: List) => {
                   })
                 ) : (
                   <Typography key={index} variant="body1" component="div">
-                    {item.reason}
+                    {item.reason ? item.reason : "Finns ingen information om maten"}
                   </Typography>
                 )}
               </Paper>

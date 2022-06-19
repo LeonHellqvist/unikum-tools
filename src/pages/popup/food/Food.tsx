@@ -20,7 +20,8 @@ const Food = ({ setPage }: CreateButtonProps) => {
 
 
   React.useEffect(() => {
-    fetch(`https://tools-proxy.leonhellqvist.workers.dev?service=skolmaten&school=76517002&year=${new Date().getFullYear()}&week=${week-2}&count=1`)
+    /* setList([]) */
+    fetch(`https://tools-proxy.leonhellqvist.workers.dev?service=skolmaten&school=76517002&year=${new Date().getFullYear()}&week=${week-1}`)
     .then(async response => {
       let list = await response.json();
       list = list.menu.weeks[0].days;
@@ -43,10 +44,10 @@ const Food = ({ setPage }: CreateButtonProps) => {
   }, [week])
 
   return (
-    <div className="App" style={{height: 500}}>
+    <div className="App" style={{height: 400}}>
       <FoodHeader week={week}/>
-      {list.length != 0 ? <FoodList list={list} /> : <Stack spacing={1} sx={{paddingTop: 4}}><Skeleton variant="text" /><Skeleton variant="text" /><Skeleton variant="text" /></Stack>}
-      <FoodNav setPage={setPage} />
+      {list.length != 0 ? <FoodList list={list} week={week} /> : <Stack spacing={1} sx={{paddingTop: 4}}><Skeleton variant="text" /><Skeleton variant="text" /><Skeleton variant="text" /></Stack>}
+      <FoodNav setPage={setPage} week={week} setWeek={setWeek}/>
     </div>
   );
 };
