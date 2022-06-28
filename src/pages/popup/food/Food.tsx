@@ -32,9 +32,8 @@ const Food = ({ setPage }: CreateButtonProps) => {
       }
 
       // Detta funkar alltid eftersom .getday() returnerar 0-6 ALLTID
-      // TODO: Ta bort "- 4" eftersom det bara är för test
       // @ts-ignore
-      const day: keyof typeof removeTable = new Date().getDay() + 2;
+      const day: keyof typeof removeTable = new Date().getDay();
       const dayIndex = removeTable[day];
       const res = {week: list, scrollTo: dayIndex};
       //Konverterar getDay() som börjar på en söndag till en måndag
