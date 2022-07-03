@@ -3,8 +3,8 @@ import "../index.css";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
-import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeftRounded';
+import ArrowRightIcon from '@mui/icons-material/ArrowRightRounded';
 import Stack from "@mui/material/Stack";
 import IconButton from '@mui/material/IconButton';
 

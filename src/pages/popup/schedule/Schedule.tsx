@@ -20,8 +20,28 @@ const Schedule = ({ setPage }: CreateButtonProps) => {
 
   const [week, setWeek] = React.useState(weekNumber(new Date()));
   const [day, setDay] = React.useState(new Date().getDay())
+  const [hideMode, setHideMode] = React.useState(false);
   const [lessons, setLessons] = React.useState([])
+  const [hiddenLessons, setHiddenLessons] = React.useState<any[]>([]);
   
+  React.useEffect(() => {
+    //get scheduleHiddenLessons from chrome storage
+    chrome.storage.sync.get("scheduleHiddenLessons", (result) => {
+      if (result.scheduleHiddenLessons) {
+        setHiddenLessons(result.scheduleHiddenLessons);
+      }
+    });
+  }, [])
+  
+  React.useEffect(() => {
+    console.log(hiddenLessons)
+    if (hiddenLessons.length != 0) {
+      chrome.storage.sync.set({
+        scheduleHiddenLessons: hiddenLessons,
+      });
+    }
+  }, [hiddenLessons])
+
   React.useEffect(() => {
     let dayToUse = day;
     if (day == 0 || day == 6) {
@@ -32,6 +52,9 @@ const Schedule = ({ setPage }: CreateButtonProps) => {
     fetch(`https://tools-proxy.leonhellqvist.workers.dev?service=skola24&subService=getLessons&hostName=katrineholm.skola24.se&unitGuid=ZGI0OGY4MjktMmYzNy1mMmU3LTk4NmItYzgyOWViODhmNzhj&groupGuid=NTk4NzRhOGQtNDVjOS1mYzE2LTg0NTktNDc1ZjQ0MTQ3YjU4&year=${year}&week=${week - 6}&scheduleDay=${dayToUse}`)
     .then(async response => {
       const res = await response.json();
+      for (let i = 0; i < hiddenLessons.length; i++) {
+        res.lessonInfo = res.lessonInfo.filter((lesson: any) => lesson.guidId != hiddenLessons[i].guidId)
+      }
       const sorted = res.lessonInfo.sort(function (a: any, b: any) {
         const aTime = parseInt(a.timeStart.replaceAll(":", ""));
         const bTime = parseInt(b.timeStart.replaceAll(":", ""));
@@ -57,13 +80,13 @@ const Schedule = ({ setPage }: CreateButtonProps) => {
       console.log(sorted);
     })
 
-  }, [week, day])
+  }, [week, day, hiddenLessons])
 
   return (
     <div className="App" style={{height: 400}}>
       <ScheduleHeader week={week} setWeek={setWeek}/>
-      <ScheduleList lessons={lessons} week={week}/>
-      <ScheduleNav day={day} setDay={setDay} setPage={setPage}/>
+      <ScheduleList lessons={lessons} week={week} hideMode={hideMode} setHiddenLessons={setHiddenLessons}/>
+      <ScheduleNav day={day} setDay={setDay} hideMode={hideMode} setHideMode={setHideMode} setPage={setPage}/>
     </div>
   );
 };

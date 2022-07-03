@@ -11,6 +11,8 @@ import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
 import Stack from "@mui/material/Stack";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import IconButton from '@mui/material/IconButton';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { weekNumber } from "weeknumber";
 import Divider from "@mui/material/Divider";
 import Pagination from "@mui/material/Pagination";
@@ -23,6 +25,8 @@ interface CreateButtonProps {
   setPage: (params: any) => any;
   day: number;
   setDay: (params: any) => any;
+  hideMode: boolean;
+  setHideMode: (params: any) => any;
 }
 
 // pass prop "setPage" to button with typescript
@@ -30,6 +34,8 @@ const ScheduleNav = ({
   setPage,
   day,
   setDay,
+  hideMode,
+  setHideMode,
 }: CreateButtonProps) => {
 
   const handleDayChange = (event: any, newDay: any) => {
@@ -58,6 +64,9 @@ const ScheduleNav = ({
           <Button disableElevation onClick={() => setPage(0)}>
             <ArrowBackIcon />
           </Button>
+          <IconButton color={hideMode ? "error" : "default"} onClick={() => setHideMode((prev: any) => !prev)}>
+            <VisibilityOffIcon />
+          </IconButton>
           <ToggleButtonGroup
             value={day}
             exclusive
@@ -66,11 +75,11 @@ const ScheduleNav = ({
             size="small"
             color="primary"
           >
-            <ToggleButton value={1}>Må</ToggleButton>
-            <ToggleButton value={2}>Ti</ToggleButton>
-            <ToggleButton value={3}>On</ToggleButton>
-            <ToggleButton value={4}>To</ToggleButton>
-            <ToggleButton value={5}>Fr</ToggleButton>
+            <ToggleButton value={1}>Mån</ToggleButton>
+            <ToggleButton value={2}>Tis</ToggleButton>
+            <ToggleButton value={3}>Ons</ToggleButton>
+            <ToggleButton value={4}>Tor</ToggleButton>
+            <ToggleButton value={5}>Fre</ToggleButton>
           </ToggleButtonGroup>
         </Stack>
       </Paper>

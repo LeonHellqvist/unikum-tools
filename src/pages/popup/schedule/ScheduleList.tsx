@@ -30,12 +30,21 @@ interface Lessons {
     map: any;
   };
   week: number;
+  hideMode: boolean;
+  setHiddenLessons: (params: any) => any;
 }
 // pass prop "setPage" to button with typescript
-const ScheduleList = ({ lessons, week }: Lessons) => {
+const ScheduleList = ({ lessons, week, hideMode, setHiddenLessons }: Lessons) => {
   const stackRef = React.useRef<HTMLInputElement>(null);
   const elRef = React.useRef<HTMLInputElement>(null);
   const currentWeek = weekNumber(new Date());
+
+  const hideStyles = {
+    ':hover': {
+      bgcolor: '#421a17', // theme.palette.primary.main
+      color: 'white',
+    },
+  }
 
   React.useEffect(() => {
     const timer = setTimeout(() => {
@@ -60,6 +69,18 @@ const ScheduleList = ({ lessons, week }: Lessons) => {
     return true;
   } */
 
+  const hideLesson = (lesson: Lesson) => {
+    if (!hideMode) return;
+    const lessonEssentials = {
+      guidId: lesson.guidId,
+      texts: lesson.texts,
+      timeStartU: lesson.timeStartU,
+      timeEndU: lesson.timeEndU,
+    }
+    setHiddenLessons((prev: any) => [...prev, lessonEssentials]);
+  }
+
+
   const shouldBeRef = (index: number) => {
     const d = new Date().toLocaleTimeString([], {
       hour: "2-digit",
@@ -83,11 +104,6 @@ const ScheduleList = ({ lessons, week }: Lessons) => {
       )
         return true;
     }
-    return false;
-  };
-
-  const lastText = (lessonIndex: number, index: number) => {
-    if (lessons[lessonIndex].texts.length - 1 == index) return true;
     return false;
   };
 
@@ -117,7 +133,9 @@ const ScheduleList = ({ lessons, week }: Lessons) => {
               style={{ transitionDelay: `${lessonIndex * 200}ms` }}
             >
               <Paper
-                sx={{ textAlign: "left", height: "100%" }}
+                style={{ textAlign: "left", height: "100%" }}
+                sx={hideMode == true ? hideStyles : null}
+                onClick={() => {hideLesson(lesson)}}
                 {...(shouldBeRef(lessonIndex)
                   ? { elevation: 20 }
                   : { elevation: 4 })}
