@@ -130,7 +130,7 @@ const ScheduleList = ({ lessons, week, hideMode, setHiddenLessons }: Lessons) =>
           >
             <Zoom
               in={true}
-              style={{ transitionDelay: `${lessonIndex * 200}ms` }}
+              style={{ transitionDelay: `${1 * 200}ms` }}
             >
               <Paper
                 style={{ textAlign: "left", height: "100%" }}
