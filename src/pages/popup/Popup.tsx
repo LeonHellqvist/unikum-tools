@@ -15,6 +15,7 @@ import "./Popup.css";
 import '@fontsource/roboto/400.css';
 
 import CreateButton from './CreateButton';
+import Schedule from './schedule/Schedule';
 import Food from './food/Food';
 
 
@@ -57,7 +58,7 @@ const Popup = () => {
               </nav>
               <nav aria-label="main mailbox folders">
                 <List>
-                  <ListItem disablePadding>
+                  <ListItem disablePadding onClick={() => setPage(4)}>
                     <ListItemButton>
                       <ListItemIcon>
                         <EventNoteIcon color="primary" />
@@ -65,7 +66,7 @@ const Popup = () => {
                       <ListItemText primary="Schema" />
                     </ListItemButton>
                   </ListItem>
-                  <ListItem disablePadding onClick={() => setPage(4)}>
+                  <ListItem disablePadding onClick={() => setPage(5)}>
                     <ListItemButton>
                       <ListItemIcon>
                         <LocalDiningIcon color="primary" />
@@ -97,6 +98,12 @@ const Popup = () => {
   }
 
   if (page === 4) {
+    return (
+      <Schedule setPage={setPage}></Schedule>
+    );
+  }
+
+  if (page === 5) {
     return (
       <Food setPage={setPage}></Food>
     );
