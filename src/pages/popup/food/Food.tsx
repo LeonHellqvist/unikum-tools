@@ -21,7 +21,7 @@ const Food = ({ setPage }: CreateButtonProps) => {
 
   React.useEffect(() => {
     /* setList([]) */
-    fetch(`https://tools-proxy.leonhellqvist.workers.dev?service=skolmaten&school=76517002&year=${new Date().getFullYear()}&week=${week-1}`)
+    fetch(`https://tools-proxy.leonhellqvist.workers.dev?service=skolmaten&subService=menu&school=76517002&year=${new Date().getFullYear()}&week=${week-1}`)
     .then(async response => {
       let list = await response.json();
       list = list.menu.weeks[0].days;
