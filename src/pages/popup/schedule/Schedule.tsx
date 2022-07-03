@@ -15,13 +15,19 @@ interface CreateButtonProps {
 // pass prop "setPage" to button with typescript
 const Schedule = ({ setPage }: CreateButtonProps) => {
 
-  // TODO: Fixa så att man kan byta dag och vecka
+  // TODO: Fixa så att även "gömda" lektioner visas på rätt sätt
+  // TODO: Fixa så att man kan ignorera lektioner
 
   const [week, setWeek] = React.useState(weekNumber(new Date()));
+  const [day, setDay] = React.useState(new Date().getDay())
   const [lessons, setLessons] = React.useState([])
   
   React.useEffect(() => {
-    fetch(`https://tools-proxy.leonhellqvist.workers.dev?service=skola24&subService=getLessons&hostName=katrineholm.skola24.se&unitGuid=ZGI0OGY4MjktMmYzNy1mMmU3LTk4NmItYzgyOWViODhmNzhj&groupGuid=NTk4NzRhOGQtNDVjOS1mYzE2LTg0NTktNDc1ZjQ0MTQ3YjU4`)
+    if (day == 0 || day == 6) {
+      setDay(5)
+    }
+    const year = new Date().getFullYear();
+    fetch(`https://tools-proxy.leonhellqvist.workers.dev?service=skola24&subService=getLessons&hostName=katrineholm.skola24.se&unitGuid=ZGI0OGY4MjktMmYzNy1mMmU3LTk4NmItYzgyOWViODhmNzhj&groupGuid=NTk4NzRhOGQtNDVjOS1mYzE2LTg0NTktNDc1ZjQ0MTQ3YjU4&year=${year}&week=${week - 6}&scheduleDay=${day}`)
     .then(async response => {
       const res = await response.json();
       const sorted = res.lessonInfo.sort(function (a: any, b: any) {
@@ -49,13 +55,13 @@ const Schedule = ({ setPage }: CreateButtonProps) => {
       console.log(sorted);
     })
 
-  }, [])
+  }, [week, day])
 
   return (
     <div className="App" style={{height: 400}}>
-      <ScheduleHeader week={week}/>
+      <ScheduleHeader week={week} setWeek={setWeek}/>
       <ScheduleList lessons={lessons} week={week}/>
-      <ScheduleNav week={week} setWeek={setWeek} setPage={setPage}/>
+      <ScheduleNav day={day} setDay={setDay} setPage={setPage}/>
     </div>
   );
 };
