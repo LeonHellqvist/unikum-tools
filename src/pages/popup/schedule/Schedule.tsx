@@ -23,11 +23,13 @@ const Schedule = ({ setPage }: CreateButtonProps) => {
   const [lessons, setLessons] = React.useState([])
   
   React.useEffect(() => {
+    let dayToUse = day;
     if (day == 0 || day == 6) {
       setDay(5)
+      dayToUse = 5
     }
     const year = new Date().getFullYear();
-    fetch(`https://tools-proxy.leonhellqvist.workers.dev?service=skola24&subService=getLessons&hostName=katrineholm.skola24.se&unitGuid=ZGI0OGY4MjktMmYzNy1mMmU3LTk4NmItYzgyOWViODhmNzhj&groupGuid=NTk4NzRhOGQtNDVjOS1mYzE2LTg0NTktNDc1ZjQ0MTQ3YjU4&year=${year}&week=${week - 6}&scheduleDay=${day}`)
+    fetch(`https://tools-proxy.leonhellqvist.workers.dev?service=skola24&subService=getLessons&hostName=katrineholm.skola24.se&unitGuid=ZGI0OGY4MjktMmYzNy1mMmU3LTk4NmItYzgyOWViODhmNzhj&groupGuid=NTk4NzRhOGQtNDVjOS1mYzE2LTg0NTktNDc1ZjQ0MTQ3YjU4&year=${year}&week=${week - 6}&scheduleDay=${dayToUse}`)
     .then(async response => {
       const res = await response.json();
       const sorted = res.lessonInfo.sort(function (a: any, b: any) {
