@@ -93,9 +93,18 @@ Det här är ett exempel på hur du kan sätta upp projektet. Följ bara dessa i
 
 Om du inte redan har NPM, så kan du installera det genom att köra:
 
-```
-  npm install npm@latest -g
-```
+Debianbaserade system
+  ```sh
+    sudo apt install npm
+  ```
+Red Hat Linux system
+  ```sh
+    sudo dnf install npm
+  ```
+Archbaserade system
+  ```sh
+    sudo pacman -S npm
+  ```
 
 ### Installation
 
