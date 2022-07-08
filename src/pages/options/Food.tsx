@@ -27,10 +27,10 @@ const Food = () => {
           });
         }
       }
+      setStations(stationsFormatted);
       chrome.storage.sync.get('foodSettings', function(result) {
         if (result.foodSettings) {
           setSelectedStation(result.foodSettings);
-          setStations(stationsFormatted);
         }
       })
     });
@@ -80,7 +80,7 @@ const Food = () => {
               );
             }}
             groupBy={(station) => station.municipally}
-            getOptionLabel={(station) => station === true ? "Laddar..." : station.label}
+            getOptionLabel={(station) => station === true ? "Alternativ" : station.label}
             sx={{ width: 300 }}
             renderInput={(params) => (
               <TextField {...params} label="Matsal" />
