@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import '@fontsource/roboto/400.css';
 
 import Bookmarks from "./Bookmarks";
+import Food from "./Food";
 
 
 
@@ -29,6 +30,7 @@ const Options = () => {
             </Box>
           </header>
           <Bookmarks />
+          <Food />
         </div>
     );
   }
