@@ -27,7 +27,7 @@ const Options = () => {
       <Bookmarks />
       <Food />
       <Schedule />
-      <Box sx={{ height: 40 }}></Box>
+      <Box sx={{ height: 400 }}></Box>
     </div>
   );
 };
