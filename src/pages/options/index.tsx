@@ -3,14 +3,14 @@ import Options from "./Options";
 import "./index.css";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import {yellow} from '@mui/material/colors';
+import {green} from '@mui/material/colors';
 
 
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: yellow[500],
+      main: green[500],
     },
   },
 });
