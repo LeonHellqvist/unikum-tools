@@ -18,7 +18,7 @@ const Options = () => {
           <AppBar position="static">
             <Toolbar>
               <Typography variant="h6" component="div">
-                Unikum tools
+                Unikum Tools
               </Typography>
             </Toolbar>
           </AppBar>
