@@ -47,8 +47,8 @@ const CreateButton = ({ setPage }: CreateButtonProps) => {
             bgColor:
               result.bookmarks.length !== 0
                 ? result.bookmarks[result.bookmarks.length - 1].bgColor
-                : "#4CAF50",
-            borderRadius:
+                : "#4caf50",
+            radius:
               result.bookmarks.length !== 0
                 ? result.bookmarks[result.bookmarks.length - 1].borderRadius
                 : 1,
