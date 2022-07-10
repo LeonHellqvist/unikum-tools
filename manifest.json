@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Unikum tools",
+  "name": "Unikum Tools",
   "version": "0.0.1",
   "description": "Gör Unikum trevligare att använda med anpassbara bokmärken. Du kan också se matsedeln och ditt schema! 👍",
   "options_page": "options.html",
