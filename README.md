@@ -118,7 +118,7 @@ Om du inte redan har NPM så måste du installera det först
 <!-- ANVÄNDNINGSEXEMPEL -->
 ## Användnings exempel
 
-[![Product Name Screen Shot][product-customization]](https://example.com)
+[![Product Name Screen Shot][ButtonCustomizer]](https://example.com)
 
 Här kan vi se alternativ sidan användas för att ändra utseende på bokmärkerna
 
@@ -201,4 +201,9 @@ Projektlänk: [https://github.com/othneildrew/Best-README-Template](https://gith
 [license-shield]: https://img.shields.io/github/license/LeonHellqvist/unikum-tools.svg?style=for-the-badge
 [license-url]: https://github.com/LeonHellqvist/unikum-tools/blob/main/LICENSE.txt
 [product-screenshot]: images/unikumExample.png
-[product-customization]: images/buttonCustomizer.png
+[buttonCustomizer]: images/buttonCustomizer.png
+[settings]: images/settings.png
+[menu]: images/settings.png
+[bookmark]: images/bookmark.png
+[food]: images/food.png
+[schedule]: images/schedule.png
