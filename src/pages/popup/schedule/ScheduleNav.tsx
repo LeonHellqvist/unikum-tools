@@ -74,6 +74,7 @@ const ScheduleNav = ({
             aria-label="text alignment"
             size="small"
             color="primary"
+            style={{marginTop: "-3px"}}
           >
             <ToggleButton value={1}>Mån</ToggleButton>
             <ToggleButton value={2}>Tis</ToggleButton>
