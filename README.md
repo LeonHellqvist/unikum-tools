@@ -131,11 +131,6 @@ _För mer exempel, kolla in [demo](https://youtube.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ Matsedel ] Kunna se matsedeln och dagens mat
-- [ Schema ] Kunna se sitt egna schema
-- [ Nattläge ] Kunna byta tema till nattläge
-    - [ Unikum ]
-    - [ Lärknuten ]
 - [ Firefox stöd ] Väntar på Firefox då detta inte kan fixas av oss se [Bugzilla](https://bugzilla.mozilla.org/show_bug.cgi?id=1247687)
 
 Se [öppna issues](https://github.com/LeonHellqvist/unikum-tools/issues) för en full lista av föreslagna funktioner (och kända problem).
@@ -147,7 +142,7 @@ Se [öppna issues](https://github.com/LeonHellqvist/unikum-tools/issues) för en
 <!-- BIDRA -->
 ## Bidra
 
-Bidrag är det som gör communityn med öppen källkod till en så fantastisk plats. Alla bidrag du gör är **mycket uppskattade**.
+Bidrag är det som gör communityn med öppen källkod så bra. Alla bidrag du gör är **mycket uppskattade**.
 
 Om du har en idé som skulle göra det här bättre, forka repon och skapa en pull request. Du kan också bara öppna en issue med taggen "förbättring".
 Glöm inte att ge projektet en stjärna, tack så mycket!
