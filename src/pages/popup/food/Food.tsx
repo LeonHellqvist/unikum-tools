@@ -85,11 +85,7 @@ const Food = ({ setPage }: CreateButtonProps) => {
       ) : list.length != 0 ? (
         <FoodList list={list} week={week} />
       ) : (
-        <Stack spacing={1} sx={{ paddingTop: 4 }}>
-          <Skeleton variant="text" />
-          <Skeleton variant="text" />
-          <Skeleton variant="text" />
-        </Stack>
+        null
       )}
 
       <FoodNav setPage={setPage} week={week} setWeek={setWeek} />
