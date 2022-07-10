@@ -34,17 +34,22 @@ interface Lessons {
   setHiddenLessons: (params: any) => any;
 }
 // pass prop "setPage" to button with typescript
-const ScheduleList = ({ lessons, week, hideMode, setHiddenLessons }: Lessons) => {
+const ScheduleList = ({
+  lessons,
+  week,
+  hideMode,
+  setHiddenLessons,
+}: Lessons) => {
   const stackRef = React.useRef<HTMLInputElement>(null);
   const elRef = React.useRef<HTMLInputElement>(null);
   const currentWeek = weekNumber(new Date());
 
   const hideStyles = {
-    ':hover': {
-      bgcolor: '#421a17', // theme.palette.primary.main
-      color: 'white',
+    ":hover": {
+      bgcolor: "#421a17", // theme.palette.primary.main
+      color: "white",
     },
-  }
+  };
 
   React.useEffect(() => {
     const timer = setTimeout(() => {
@@ -63,12 +68,6 @@ const ScheduleList = ({ lessons, week, hideMode, setHiddenLessons }: Lessons) =>
     return () => clearTimeout(timer);
   }, [lessons]);
 
-  /* const shouldBeSelected = (index: number) => {
-    if (currentWeek != week) return false;
-    if (list.scrollTo != index) return false;
-    return true;
-  } */
-
   const hideLesson = (lesson: Lesson) => {
     if (!hideMode) return;
     const lessonEssentials = {
@@ -76,10 +75,9 @@ const ScheduleList = ({ lessons, week, hideMode, setHiddenLessons }: Lessons) =>
       texts: lesson.texts,
       timeStartU: lesson.timeStartU,
       timeEndU: lesson.timeEndU,
-    }
+    };
     setHiddenLessons((prev: any) => [...prev, lessonEssentials]);
-  }
-
+  };
 
   const shouldBeRef = (index: number) => {
     const d = new Date().toLocaleTimeString([], {
@@ -128,14 +126,13 @@ const ScheduleList = ({ lessons, week, hideMode, setHiddenLessons }: Lessons) =>
             {...(shouldBeRef(lessonIndex) ? { ref: elRef } : null)}
             style={{ scrollMargin: 40 }}
           >
-            <Zoom
-              in={true}
-              style={{ transitionDelay: `${1 * 200}ms` }}
-            >
+            <Zoom in={true} style={{ transitionDelay: `${1 * 200}ms` }}>
               <Paper
                 style={{ textAlign: "left", height: "100%" }}
                 sx={hideMode == true ? hideStyles : null}
-                onClick={() => {hideLesson(lesson)}}
+                onClick={() => {
+                  hideLesson(lesson);
+                }}
                 {...(shouldBeRef(lessonIndex)
                   ? { elevation: 20 }
                   : { elevation: 4 })}
@@ -144,7 +141,7 @@ const ScheduleList = ({ lessons, week, hideMode, setHiddenLessons }: Lessons) =>
                   direction="row"
                   justifyContent="flex-start"
                   alignItems="center"
-                  sx={{height: "100%", width: "100%"}}
+                  sx={{ height: "100%", width: "100%" }}
                 >
                   <Box
                     sx={{
@@ -155,7 +152,7 @@ const ScheduleList = ({ lessons, week, hideMode, setHiddenLessons }: Lessons) =>
                       backgroundColor: lesson.bColor,
                     }}
                   />
-                  <Box sx={{padding: 1, width: "100%"}}>
+                  <Box sx={{ padding: 1, width: "100%" }}>
                     {lesson.texts.map(
                       (item: any, index: number, length: any) => {
                         return index != length.length - 1 ? (
@@ -173,18 +170,15 @@ const ScheduleList = ({ lessons, week, hideMode, setHiddenLessons }: Lessons) =>
                             justifyContent="space-between"
                             alignItems="center"
                             spacing={2}
-                            sx={{width: "100%"}}
+                            sx={{ width: "100%" }}
                           >
-                            <Typography
-                              variant="body1"
-                              component="div"
-                            >
+                            <Typography variant="body1" component="div">
                               {item}
                             </Typography>
                             <Typography
                               variant="body1"
                               component="div"
-                              sx={{paddingRight: 1}}
+                              sx={{ paddingRight: 1 }}
                             >
                               {lesson.timeStartU} - {lesson.timeEndU}
                             </Typography>

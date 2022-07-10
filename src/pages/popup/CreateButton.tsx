@@ -9,7 +9,7 @@ import "./Popup.css";
 interface CreateButtonProps {
   setPage: (params: any) => any;
 }
-// pass prop "setPage" to button with typescript
+
 const CreateButton = ({ setPage }: CreateButtonProps) => {
   const [title, setTitle] = React.useState("");
 
@@ -18,7 +18,6 @@ const CreateButton = ({ setPage }: CreateButtonProps) => {
   };
 
   const bookMark = () => {
-    //get value from chrome storage
     chrome.storage.sync.get("bookmarks", function (result) {
       chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
         let found: boolean = false;

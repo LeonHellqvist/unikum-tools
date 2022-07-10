@@ -1,4 +1,3 @@
-import React from "react";
 import "./Options.css";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";

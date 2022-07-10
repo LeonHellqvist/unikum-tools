@@ -806,14 +806,14 @@ const Schedule = () => {
   ];
 
   React.useEffect(() => {
-    chrome.storage.sync.get('scheduleSettings', function(result) {
+    chrome.storage.sync.get("scheduleSettings", function (result) {
       console.log(result);
       if (result.scheduleSettings) {
         setSelectedHostName(result.scheduleSettings.hostName);
         setSelectedSchool(result.scheduleSettings.school);
         setSelectedClass(result.scheduleSettings.class);
       }
-    })
+    });
   }, []);
 
   React.useEffect(() => {

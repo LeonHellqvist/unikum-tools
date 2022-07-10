@@ -1,21 +1,10 @@
-import React from "react";
 import "../Popup.css";
 import "../index.css";
-import Skeleton from "@mui/material/Skeleton";
-import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft";
-import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
-import FormatAlignRightIcon from "@mui/icons-material/FormatAlignRight";
-import LaptopIcon from "@mui/icons-material/Laptop";
-import TvIcon from "@mui/icons-material/Tv";
-import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
 import Stack from "@mui/material/Stack";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import IconButton from '@mui/material/IconButton';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { weekNumber } from "weeknumber";
-import Divider from "@mui/material/Divider";
-import Pagination from "@mui/material/Pagination";
+import IconButton from "@mui/material/IconButton";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import Button from "@mui/material/Button";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Box from "@mui/material/Box";
@@ -37,7 +26,6 @@ const ScheduleNav = ({
   hideMode,
   setHideMode,
 }: CreateButtonProps) => {
-
   const handleDayChange = (event: any, newDay: any) => {
     if (newDay !== null) {
       setDay(newDay);
@@ -64,7 +52,10 @@ const ScheduleNav = ({
           <Button disableElevation onClick={() => setPage(0)}>
             <ArrowBackIcon />
           </Button>
-          <IconButton color={hideMode ? "error" : "default"} onClick={() => setHideMode((prev: any) => !prev)}>
+          <IconButton
+            color={hideMode ? "error" : "default"}
+            onClick={() => setHideMode((prev: any) => !prev)}
+          >
             <VisibilityOffIcon />
           </IconButton>
           <ToggleButtonGroup
@@ -74,7 +65,7 @@ const ScheduleNav = ({
             aria-label="text alignment"
             size="small"
             color="primary"
-            style={{marginTop: "-3px"}}
+            style={{ marginTop: "-3px" }}
           >
             <ToggleButton value={1}>Mån</ToggleButton>
             <ToggleButton value={2}>Tis</ToggleButton>

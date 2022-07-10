@@ -1,13 +1,13 @@
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import Popup from "./Popup";
-import CssBaseline from '@mui/material/CssBaseline';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import {green} from '@mui/material/colors';
+import CssBaseline from "@mui/material/CssBaseline";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { green } from "@mui/material/colors";
 
 const theme = createTheme({
   palette: {
-    mode: 'dark',
+    mode: "dark",
     primary: {
       main: green[500],
     },
@@ -22,7 +22,7 @@ function init() {
   const root = createRoot(appContainer);
   root.render(
     <ThemeProvider theme={theme}>
-      <CssBaseline/>
+      <CssBaseline />
       <Popup />
     </ThemeProvider>
   );

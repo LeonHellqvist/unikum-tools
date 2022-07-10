@@ -70,17 +70,17 @@ const Food = ({ setPage }: CreateButtonProps) => {
     <div className="App" style={{ height: 400 }}>
       <FoodHeader week={week} />
       {noStation ? (
-        <Box sx={{marginTop: 8}}>
-        <Typography variant="h6" component="div">
-          Välj din matsal
-        </Typography>
-        <Button
-          variant="contained"
-          disableElevation
-          onClick={() => openOptions()}
-        >
-          Alternatv
-        </Button>
+        <Box sx={{ marginTop: 8 }}>
+          <Typography variant="h6" component="div">
+            Välj din matsal
+          </Typography>
+          <Button
+            variant="contained"
+            disableElevation
+            onClick={() => openOptions()}
+          >
+            Alternatv
+          </Button>
         </Box>
       ) : list.length != 0 ? (
         <FoodList list={list} week={week} />

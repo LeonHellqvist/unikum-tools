@@ -9,7 +9,9 @@ import TextField from "@mui/material/TextField";
 
 const Food = () => {
   const [stations, setStations] = React.useState<any[]>([]);
-  const [selectedStation, setSelectedStation] = React.useState<object | null>(null);
+  const [selectedStation, setSelectedStation] = React.useState<object | null>(
+    null
+  );
 
   React.useEffect(() => {
     fetch(
@@ -28,11 +30,11 @@ const Food = () => {
         }
       }
       setStations(stationsFormatted);
-      chrome.storage.sync.get('foodSettings', function(result) {
+      chrome.storage.sync.get("foodSettings", function (result) {
         if (result.foodSettings) {
           setSelectedStation(result.foodSettings);
         }
-      })
+      });
     });
   }, []);
 
@@ -41,7 +43,7 @@ const Food = () => {
     chrome.storage.sync.set({ foodSettings: value }, () => {
       console.log("Saved food settings");
     });
-  }
+  };
 
   return (
     <Container maxWidth="md" sx={{ marginTop: 2 }}>
@@ -62,31 +64,35 @@ const Food = () => {
           alignItems="center"
           spacing={2}
         >
-        <Paper sx={{padding: 2, marginTop: 2}}>
-          <Typography variant="h6" component="div" sx={{marginBottom: 2, textAlign: 'center'}}>
-            Välj din matsal
-          </Typography>
-          <Autocomplete
-            id="grouped-demo"
-            options={stations}
-            value={selectedStation}
-            isOptionEqualToValue={(option, value) => option.id === value.id}
-            onChange={(event, value) => handleStationChange(value)}
-            renderOption={(props, station) => {
-              return (
-                <li {...props} key={station.id}>
-                  {station.label}
-                </li>
-              );
-            }}
-            groupBy={(station) => station.municipally}
-            getOptionLabel={(station) => station === null ? "Alternativ" : station.label}
-            sx={{ width: 300 }}
-            renderInput={(params) => (
-              <TextField {...params} label="Matsal" />
-            )}
-          />
-        </Paper>
+          <Paper sx={{ padding: 2, marginTop: 2 }}>
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{ marginBottom: 2, textAlign: "center" }}
+            >
+              Välj din matsal
+            </Typography>
+            <Autocomplete
+              id="grouped-demo"
+              options={stations}
+              value={selectedStation}
+              isOptionEqualToValue={(option, value) => option.id === value.id}
+              onChange={(event, value) => handleStationChange(value)}
+              renderOption={(props, station) => {
+                return (
+                  <li {...props} key={station.id}>
+                    {station.label}
+                  </li>
+                );
+              }}
+              groupBy={(station) => station.municipally}
+              getOptionLabel={(station) =>
+                station === null ? "Alternativ" : station.label
+              }
+              sx={{ width: 300 }}
+              renderInput={(params) => <TextField {...params} label="Matsal" />}
+            />
+          </Paper>
         </Stack>
       </Paper>
     </Container>
