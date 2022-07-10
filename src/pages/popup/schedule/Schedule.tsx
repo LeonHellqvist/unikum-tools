@@ -7,17 +7,34 @@ import ScheduleNav from "./ScheduleNav"
 import Skeleton from '@mui/material/Skeleton';
 import Stack from '@mui/material/Stack';
 import { weekNumber } from 'weeknumber'
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 
 interface CreateButtonProps {
   setPage: (params: any) => any;
 }
 
+interface Class {
+  groupGuid: string;
+  label: string;
+}
+
+interface School {
+  unitGuid: string;
+  label: string;
+}
+
+interface ScheduleSettings {
+  hostName: string;
+  school: School;
+  class: Class;
+}
+
 // pass prop "setPage" to button with typescript
 const Schedule = ({ setPage }: CreateButtonProps) => {
 
-  // TODO: Fixa så att även "gömda" lektioner visas på rätt sätt
-  // TODO: Fixa så att man kan ignorera lektioner
-
+  const [scheduleSettings, setScheduleSettings] = React.useState<ScheduleSettings | null | undefined>(null)
   const [week, setWeek] = React.useState(weekNumber(new Date()));
   const [day, setDay] = React.useState(new Date().getDay())
   const [hideMode, setHideMode] = React.useState(false);
@@ -25,7 +42,14 @@ const Schedule = ({ setPage }: CreateButtonProps) => {
   const [hiddenLessons, setHiddenLessons] = React.useState<any[]>([]);
   
   React.useEffect(() => {
-    //get scheduleHiddenLessons from chrome storage
+    chrome.storage.sync.get("scheduleSettings", (result) => {
+      if (result.scheduleSettings.class != null) {
+        setScheduleSettings(result.scheduleSettings)
+      } else {
+        setScheduleSettings(null);
+      }
+    })
+
     chrome.storage.sync.get("scheduleHiddenLessons", (result) => {
       if (result.scheduleHiddenLessons) {
         setHiddenLessons(result.scheduleHiddenLessons);
@@ -43,13 +67,14 @@ const Schedule = ({ setPage }: CreateButtonProps) => {
   }, [hiddenLessons])
 
   React.useEffect(() => {
+    if (scheduleSettings == null) return;
     let dayToUse = day;
     if (day == 0 || day == 6) {
       setDay(5)
       dayToUse = 5
     }
     const year = new Date().getFullYear();
-    fetch(`https://tools-proxy.leonhellqvist.workers.dev?service=skola24&subService=getLessons&hostName=katrineholm.skola24.se&unitGuid=ZGI0OGY4MjktMmYzNy1mMmU3LTk4NmItYzgyOWViODhmNzhj&groupGuid=NTk4NzRhOGQtNDVjOS1mYzE2LTg0NTktNDc1ZjQ0MTQ3YjU4&year=${year}&week=${week - 6}&scheduleDay=${dayToUse}`)
+    fetch(`https://tools-proxy.leonhellqvist.workers.dev?service=skola24&subService=getLessons&hostName=${scheduleSettings.hostName}&unitGuid=${scheduleSettings.school.unitGuid}&groupGuid=${scheduleSettings.class.groupGuid}&year=${year}&week=${week - 6}&scheduleDay=${dayToUse}`)
     .then(async response => {
       const res = await response.json();
       for (let i = 0; i < hiddenLessons.length; i++) {
@@ -82,13 +107,31 @@ const Schedule = ({ setPage }: CreateButtonProps) => {
 
   }, [week, day, hiddenLessons])
 
+  const openOptions = () => {
+    chrome.runtime.openOptionsPage();
+  };
+
   return (
     <div className="App" style={{height: 400}}>
       <ScheduleHeader week={week} setWeek={setWeek}/>
-      <ScheduleList lessons={lessons} week={week} hideMode={hideMode} setHiddenLessons={setHiddenLessons}/>
+      {scheduleSettings === null ? (
+        <Box sx={{marginTop: 8}}>
+        <Typography variant="h6" component="div">
+          Välj din klass
+        </Typography>
+        <Button
+          variant="contained"
+          disableElevation
+          onClick={() => openOptions()}
+        >
+          Alternatv
+        </Button>
+        </Box>
+      ) : <ScheduleList lessons={lessons} week={week} hideMode={hideMode} setHiddenLessons={setHiddenLessons}/>}
       <ScheduleNav day={day} setDay={setDay} hideMode={hideMode} setHideMode={setHideMode} setPage={setPage}/>
     </div>
   );
 };
 
 export default Schedule;
+
