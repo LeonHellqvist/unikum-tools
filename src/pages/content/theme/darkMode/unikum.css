@@ -1,4 +1,4 @@
-#main, .title-section, .body-padding {
+#main, .title-section, .body-padding, html, body {
   background-color: #121212 !important;
 }
 
@@ -78,4 +78,24 @@ a:hover {
 
 .uk-item:hover {
   background-color: #383838 !important;
+}
+
+.card-body {
+  background-color: #121212 !important;
+}
+
+.principalcard__name {
+  color: white !important;
+}
+
+h1 {
+  color: white !important;
+}
+
+div {
+  color: white !important;
+}
+
+span {
+  color: white !important;
 }
