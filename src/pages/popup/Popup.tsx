@@ -43,26 +43,18 @@ const Popup = () => {
                     </ListItemButton>
                   </ListItem>
                   <ListItem disablePadding>
-                    <ListItemButton>
+                    <ListItemButton onClick={() => openOptions()}>
                       <ListItemIcon>
-                        <DarkModeIcon color="primary"/>
+                        <SettingsIcon color="primary" />
                       </ListItemIcon>
-                      <ListItemText primary="Nattläge" />
-                    </ListItemButton>
-                  </ListItem>
-                  <ListItem disablePadding>
-                    <ListItemButton>
-                      <ListItemIcon>
-                        <DashboardIcon color="primary" />
-                      </ListItemIcon>
-                      <ListItemText primary="Layout" />
+                      <ListItemText primary="Alternativ" />
                     </ListItemButton>
                   </ListItem>
                 </List>
               </nav>
               <nav aria-label="main mailbox folders">
                 <List>
-                  <ListItem disablePadding onClick={() => setPage(4)}>
+                  <ListItem disablePadding onClick={() => setPage(2)}>
                     <ListItemButton>
                       <ListItemIcon>
                         <EventNoteIcon color="primary" />
@@ -70,20 +62,12 @@ const Popup = () => {
                       <ListItemText primary="Schema" />
                     </ListItemButton>
                   </ListItem>
-                  <ListItem disablePadding onClick={() => setPage(5)}>
+                  <ListItem disablePadding onClick={() => setPage(3)}>
                     <ListItemButton>
                       <ListItemIcon>
                         <LocalDiningIcon color="primary" />
                       </ListItemIcon>
                       <ListItemText primary="Matsedel" />
-                    </ListItemButton>
-                  </ListItem>
-                  <ListItem disablePadding>
-                    <ListItemButton onClick={() => openOptions()}>
-                      <ListItemIcon>
-                        <SettingsIcon color="primary" />
-                      </ListItemIcon>
-                      <ListItemText primary="Alternativ" />
                     </ListItemButton>
                   </ListItem>
                 </List>
@@ -101,13 +85,13 @@ const Popup = () => {
     );
   }
 
-  if (page === 4) {
+  if (page === 2) {
     return (
       <Schedule setPage={setPage}></Schedule>
     );
   }
 
-  if (page === 5) {
+  if (page === 3) {
     return (
       <Food setPage={setPage}></Food>
     );
