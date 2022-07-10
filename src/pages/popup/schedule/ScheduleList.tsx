@@ -148,10 +148,8 @@ const ScheduleList = ({ lessons, week, hideMode, setHiddenLessons }: Lessons) =>
                 >
                   <Box
                     sx={{
-                      display: "inline-block",
-                      borderBottomLeftRadius: "10px",
-                      borderTopLeftRadius: "10px",
                       marginRight: 1,
+                      marginLeft: 0.5,
                       width: "3px",
                       height: "100%",
                       backgroundColor: lesson.bColor,
