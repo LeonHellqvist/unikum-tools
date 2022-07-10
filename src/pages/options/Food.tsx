@@ -9,7 +9,7 @@ import TextField from "@mui/material/TextField";
 
 const Food = () => {
   const [stations, setStations] = React.useState<any[]>([]);
-  const [selectedStation, setSelectedStation] = React.useState<object | boolean>(true);
+  const [selectedStation, setSelectedStation] = React.useState<object | null>(null);
 
   React.useEffect(() => {
     fetch(
@@ -80,7 +80,7 @@ const Food = () => {
               );
             }}
             groupBy={(station) => station.municipally}
-            getOptionLabel={(station) => station === true ? "Alternativ" : station.label}
+            getOptionLabel={(station) => station === null ? "Alternativ" : station.label}
             sx={{ width: 300 }}
             renderInput={(params) => (
               <TextField {...params} label="Matsal" />
