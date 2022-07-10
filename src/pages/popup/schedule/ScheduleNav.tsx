@@ -49,30 +49,32 @@ const ScheduleNav = ({
           alignItems="center"
           spacing={2}
         >
-          <Button disableElevation onClick={() => setPage(0)}>
+          <Button disableElevation onClick={() => setPage(0)} style={{ marginTop: "-3px" }}>
             <ArrowBackIcon />
           </Button>
-          <IconButton
-            color={hideMode ? "error" : "default"}
-            onClick={() => setHideMode((prev: any) => !prev)}
-          >
-            <VisibilityOffIcon />
-          </IconButton>
-          <ToggleButtonGroup
-            value={day}
-            exclusive
-            onChange={handleDayChange}
-            aria-label="text alignment"
-            size="small"
-            color="primary"
-            style={{ marginTop: "-3px" }}
-          >
-            <ToggleButton value={1}>Mån</ToggleButton>
-            <ToggleButton value={2}>Tis</ToggleButton>
-            <ToggleButton value={3}>Ons</ToggleButton>
-            <ToggleButton value={4}>Tor</ToggleButton>
-            <ToggleButton value={5}>Fre</ToggleButton>
-          </ToggleButtonGroup>
+          <Stack direction="row" spacing={1} style={{ marginTop: "-3px" }}>
+            <IconButton
+              color={hideMode ? "error" : "default"}
+              onClick={() => setHideMode((prev: any) => !prev)}
+            >
+              <VisibilityOffIcon />
+            </IconButton>
+            <ToggleButtonGroup
+              value={day}
+              exclusive
+              onChange={handleDayChange}
+              aria-label="text alignment"
+              size="small"
+              color="primary"
+              style={{ marginTop: "2px" }}
+            >
+              <ToggleButton value={1}>Mån</ToggleButton>
+              <ToggleButton value={2}>Tis</ToggleButton>
+              <ToggleButton value={3}>Ons</ToggleButton>
+              <ToggleButton value={4}>Tor</ToggleButton>
+              <ToggleButton value={5}>Fre</ToggleButton>
+            </ToggleButtonGroup>
+          </Stack>
         </Stack>
       </Paper>
     </Box>
