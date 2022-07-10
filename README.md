@@ -101,7 +101,7 @@ Om du inte redan har NPM så måste du installera det först
    ```
 2. Installera NPM paket (Finns konflikter just nu pga ny React version (18))
    ```sh
-   npm install --force
+   npm install --legacy-peer-deps
    ```
 3. Starta utvecklingsmiljön
    ```sh
