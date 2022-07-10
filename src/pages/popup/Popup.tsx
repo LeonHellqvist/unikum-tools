@@ -23,6 +23,10 @@ import Food from './food/Food';
 const Popup = () => {
   const [page, setPage] = React.useState(0);
 
+  const openOptions = () => {
+    chrome.runtime.openOptionsPage();
+  };
+
   if (page === 0) {
     return (  
         <div className="App">
@@ -75,7 +79,7 @@ const Popup = () => {
                     </ListItemButton>
                   </ListItem>
                   <ListItem disablePadding>
-                    <ListItemButton>
+                    <ListItemButton onClick={() => openOptions()}>
                       <ListItemIcon>
                         <SettingsIcon color="primary" />
                       </ListItemIcon>
