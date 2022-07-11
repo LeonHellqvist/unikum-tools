@@ -148,10 +148,8 @@ Om du har en idé som skulle göra det här bättre, forka repon och skapa en pu
 Glöm inte att ge projektet en stjärna, tack så mycket!
 
 1. Forka projektet
-2. Skapa din funktions Branch (`git checkout -b funktion/OtroligFunktion`)
-3. Committa dina ändringar (`git commit -m 'Lägg till nån OtroligFunktion'`)
-4. Pusha branchen (`git push origin funktion/OtroligFunktion`)
-5. Öppna en pull request
+2. Gör dina ändringar och bidrag
+3. Öppna en pull request
 
 <p align="right">(<a href="#top">Tillbaka till toppen</a>)</p>
 
