@@ -44,19 +44,19 @@ const CreateButton = ({ setPage }: CreateButtonProps) => {
             title: title,
             uuid: uuid,
             bgColor:
-              result.bookmarks.length !== 0
+              result.bookmarks && result.bookmarks.length !== 0
                 ? result.bookmarks[result.bookmarks.length - 1].bgColor
                 : "#4caf50",
             radius:
-              result.bookmarks.length !== 0
+              result.bookmarks && result.bookmarks.length !== 0
                 ? result.bookmarks[result.bookmarks.length - 1].borderRadius
                 : 1,
             boxShadow:
-              result.bookmarks.length !== 0
+              result.bookmarks && result.bookmarks.length !== 0
                 ? result.bookmarks[result.bookmarks.length - 1].boxShadow
                 : 3,
             style:
-              result.bookmarks.length !== 0
+              result.bookmarks && result.bookmarks.length !== 0
                 ? result.bookmarks[result.bookmarks.length - 1].style
                 : "contained",
           };
