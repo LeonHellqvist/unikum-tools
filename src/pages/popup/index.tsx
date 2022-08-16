@@ -3,13 +3,13 @@ import "./index.css";
 import Popup from "./Popup";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { green } from "@mui/material/colors";
+import { yellow } from "@mui/material/colors";
 
 const theme = createTheme({
   palette: {
     mode: "dark",
     primary: {
-      main: green[500],
+      main: yellow[500],
     },
   },
 });
