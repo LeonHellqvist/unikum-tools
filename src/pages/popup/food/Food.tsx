@@ -28,7 +28,7 @@ const Food = ({ setPage }: CreateButtonProps) => {
         fetch(
           `https://tools-proxy.leonhellqvist.workers.dev?service=skolmaten&subService=menu&school=${
             result.foodSettings.id
-          }&year=${new Date().getFullYear()}&week=${week - 1}`
+          }&year=${new Date().getFullYear()}&week=${week}`
         ).then(async (response) => {
           let list = await response.json();
           list = list.menu.weeks[0].days;

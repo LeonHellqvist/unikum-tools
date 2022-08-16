@@ -78,7 +78,7 @@ const Schedule = ({ setPage }: CreateButtonProps) => {
         scheduleSettings.hostName
       }&unitGuid=${scheduleSettings.school.unitGuid}&groupGuid=${
         scheduleSettings.class.groupGuid
-      }&year=${year}&week=${week - 6}&scheduleDay=${dayToUse}`
+      }&year=${year}&week=${week}&scheduleDay=${dayToUse}`
     ).then(async (response) => {
       const res = await response.json();
       for (let i = 0; i < hiddenLessons.length; i++) {
