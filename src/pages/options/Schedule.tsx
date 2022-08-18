@@ -6,6 +6,8 @@ import Paper from "@mui/material/Paper";
 import Container from "@mui/material/Container";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import Zoom from "@mui/material/Zoom";
 
 interface SelectedSchool {
   label: string;
@@ -805,6 +807,15 @@ const Schedule = () => {
     "zulu08.skola24.se",
   ];
 
+  const [lessons, setLessons] = React.useState<any[]>([]);
+
+  const greenHover = {
+    ":hover": {
+      bgcolor: "#247E24", // theme.palette.primary.main
+      color: "white",
+    },
+  }
+
   React.useEffect(() => {
     chrome.storage.sync.get("scheduleSettings", function (result) {
       console.log(result);
@@ -814,6 +825,11 @@ const Schedule = () => {
         setSelectedClass(result.scheduleSettings.class);
       }
     });
+    chrome.storage.sync.get("scheduleHiddenLessons", function (result) {
+      if (result.scheduleHiddenLessons) {
+        setLessons(result.scheduleHiddenLessons);
+      }
+    })
   }, []);
 
   React.useEffect(() => {
@@ -918,6 +934,19 @@ const Schedule = () => {
     }
   };
 
+  const handleRemoveHiddenLesson = (guidId: string) => {
+    let lessonsTemp = lessons;
+    lessonsTemp = lessonsTemp.filter(
+      (lesson: any) => lesson.guidId != guidId
+    );
+    setLessons(lessonsTemp)
+    chrome.storage.sync.set(
+      {
+        scheduleHiddenLessons: lessonsTemp,
+      }
+    );
+  }
+
   return (
     <Container maxWidth="md" sx={{ marginTop: 2 }}>
       <Typography
@@ -1007,6 +1036,94 @@ const Schedule = () => {
               />
             </Paper>
           </Stack>
+          <Paper sx={{ padding: 2, marginLeft: 1, marginTop: 2 }}>
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{ marginBottom: 2, textAlign: "center" }}
+            >
+              Gömda lektioner
+            </Typography>
+            <Stack
+              sx={{
+                height: "200px",
+                overflowY: "scroll",
+              }}
+              direction="column"
+              justifyContent="flex-start"
+              alignItems="stretch"
+              spacing={2}
+            >
+              {lessons.map((lesson: any, lessonIndex: number) => {
+                return (
+                  <div
+                    key={lessonIndex}
+                    style={{ scrollMargin: 40 }}
+                  >
+                    <Zoom in={true} style={{ transitionDelay: `${1 * 200}ms` }}>
+                      <Paper
+                        style={{ textAlign: "left", height: "100%" }}
+                        elevation={0}
+                        sx={greenHover}
+                        onClick={() => handleRemoveHiddenLesson(lesson.guidId)}
+                      >
+                        <Stack
+                          direction="row"
+                          justifyContent="flex-start"
+                          alignItems="center"
+                          sx={{ height: "100%", width: "100%" }}
+                        >
+                          <Box
+                            sx={{
+                              marginRight: 1,
+                              marginLeft: 0.5,
+                              width: "3px",
+                              height: "100%",
+                            }}
+                          />
+                          <Box sx={{ padding: 1, width: "100%" }}>
+                            {lesson.texts.map(
+                              (item: any, index: number, length: any) => {
+                                return index != length.length - 1 ? (
+                                  <Typography
+                                    key={index}
+                                    variant="body1"
+                                    component="div"
+                                  >
+                                    {item}
+                                  </Typography>
+                                ) : (
+                                  <Stack
+                                    key={index}
+                                    direction="row"
+                                    justifyContent="space-between"
+                                    alignItems="center"
+                                    spacing={2}
+                                    sx={{ width: "100%" }}
+                                  >
+                                    <Typography variant="body1" component="div">
+                                      {item}
+                                    </Typography>
+                                    <Typography
+                                      variant="body1"
+                                      component="div"
+                                      sx={{ paddingRight: 1 }}
+                                    >
+                                      {lesson.timeStartU} - {lesson.timeEndU}
+                                    </Typography>
+                                  </Stack>
+                                );
+                              }
+                            )}
+                          </Box>
+                        </Stack>
+                      </Paper>
+                    </Zoom>
+                  </div>
+                );
+              })}
+            </Stack>
+            </Paper>
         </Stack>
       </Paper>
     </Container>
