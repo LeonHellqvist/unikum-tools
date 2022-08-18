@@ -6,6 +6,7 @@ import FoodList from "./FoodList";
 import FoodNav from "./FoodNav";
 import Skeleton from "@mui/material/Skeleton";
 import Button from "@mui/material/Button";
+import Fade from '@mui/material/Fade';
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
@@ -70,18 +71,20 @@ const Food = ({ setPage }: CreateButtonProps) => {
     <div className="App" style={{ height: 400 }}>
       <FoodHeader week={week} />
       {noStation ? (
-        <Box sx={{ marginTop: 8 }}>
-          <Typography variant="h6" component="div">
-            Välj din matsal
-          </Typography>
-          <Button
-            variant="contained"
-            disableElevation
-            onClick={() => openOptions()}
-          >
-            Alternatv
-          </Button>
-        </Box>
+        <Fade in={true}>
+          <Box sx={{ marginTop: 8 }}>
+            <Typography variant="h6" component="div">
+              Välj din matsal
+            </Typography>
+            <Button
+              variant="contained"
+              disableElevation
+              onClick={() => openOptions()}
+            >
+              Alternatv
+            </Button>
+          </Box>
+        </Fade>
       ) : list.length != 0 ? (
         <FoodList list={list} week={week} />
       ) : (
