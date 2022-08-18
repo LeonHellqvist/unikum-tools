@@ -4,6 +4,7 @@ import "../index.css";
 import ScheduleHeader from "./ScheduleHeader";
 import ScheduleList from "./ScheduleList";
 import ScheduleNav from "./ScheduleNav";
+import Fade from '@mui/material/Fade';
 import { weekNumber } from "weeknumber";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -156,18 +157,20 @@ const Schedule = ({ setPage }: CreateButtonProps) => {
     <div className="App" style={{ height: 400 }}>
       <ScheduleHeader week={week} setWeek={setWeek} />
       {scheduleSettings === null ? (
-        <Box sx={{ marginTop: 8 }}>
-          <Typography variant="h6" component="div">
-            Välj din klass
-          </Typography>
-          <Button
-            variant="contained"
-            disableElevation
-            onClick={() => openOptions()}
-          >
-            Alternatv
-          </Button>
-        </Box>
+        <Fade in={true}>
+          <Box sx={{ marginTop: 8 }}>
+            <Typography variant="h6" component="div">
+              Välj din klass
+            </Typography>
+            <Button
+              variant="contained"
+              disableElevation
+              onClick={() => openOptions()}
+            >
+              Alternatv
+            </Button>
+          </Box>
+        </Fade>
       ) : (
         <ScheduleList
           lessons={lessons}
