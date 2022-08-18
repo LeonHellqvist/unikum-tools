@@ -40,32 +40,8 @@ const Schedule = ({ setPage }: CreateButtonProps) => {
   const [lessons, setLessons] = React.useState([]);
   const [hiddenLessons, setHiddenLessons] = React.useState<any[]>([]);
 
-  React.useEffect(() => {
-    chrome.storage.sync.get("scheduleSettings", (result) => {
-      if (result.scheduleSettings.class != null) {
-        setScheduleSettings(result.scheduleSettings);
-      } else {
-        setScheduleSettings(null);
-      }
-    });
-
-    chrome.storage.sync.get("scheduleHiddenLessons", (result) => {
-      if (result.scheduleHiddenLessons) {
-        setHiddenLessons(result.scheduleHiddenLessons);
-      }
-    });
-  }, []);
-
-  React.useEffect(() => {
-    console.log(hiddenLessons);
-    if (hiddenLessons.length != 0) {
-      chrome.storage.sync.set({
-        scheduleHiddenLessons: hiddenLessons,
-      });
-    }
-  }, [hiddenLessons]);
-
-  React.useEffect(() => {
+  function getTimetable() {
+    console.log(scheduleSettings)
     if (scheduleSettings == null) return;
     let dayToUse = day;
     if (day == 0 || day == 6) {
@@ -122,7 +98,55 @@ const Schedule = ({ setPage }: CreateButtonProps) => {
       setLessons(sorted);
       console.log(sorted);
     });
-  }, [week, day, hiddenLessons]);
+  }
+
+  React.useEffect(() => {
+    chrome.storage.sync.get("scheduleSettings", (result) => {
+      if (result.scheduleSettings.class != null) {
+        setScheduleSettings(result.scheduleSettings);
+      } else {
+        setScheduleSettings(null);
+      }
+    });
+
+    chrome.storage.sync.get("scheduleHiddenLessons", (result) => {
+      if (result.scheduleHiddenLessons) {
+        setHiddenLessons(result.scheduleHiddenLessons);
+      }
+    });
+    console.log("ok?")
+  }, []);
+
+  React.useEffect(() => {
+    console.log(hiddenLessons);
+    if (hiddenLessons.length != 0) {
+      chrome.storage.sync.set({
+        scheduleHiddenLessons: hiddenLessons,
+      });
+    }
+  }, [hiddenLessons]);
+
+  React.useEffect(() => {
+    if (scheduleSettings != null) {
+      getTimetable();
+    }
+  }, [scheduleSettings])
+
+  React.useEffect(() => {
+    if (scheduleSettings != null) {
+      getTimetable();
+    }
+  }, [week, day]);
+
+  React.useEffect(() => {
+    let tempLessons = lessons;
+    for (let i = 0; i < hiddenLessons.length; i++) {
+      tempLessons = tempLessons.filter(
+        (lesson: any) => lesson.guidId != hiddenLessons[i].guidId
+      );
+    }
+    setLessons(tempLessons);
+  }, [hiddenLessons])
 
   const openOptions = () => {
     chrome.runtime.openOptionsPage();
