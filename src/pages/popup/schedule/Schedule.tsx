@@ -119,15 +119,6 @@ const Schedule = ({ setPage }: CreateButtonProps) => {
   }, []);
 
   React.useEffect(() => {
-    console.log(hiddenLessons);
-    if (hiddenLessons.length != 0) {
-      chrome.storage.sync.set({
-        scheduleHiddenLessons: hiddenLessons,
-      });
-    }
-  }, [hiddenLessons]);
-
-  React.useEffect(() => {
     if (scheduleSettings != null) {
       getTimetable();
     }
@@ -147,6 +138,11 @@ const Schedule = ({ setPage }: CreateButtonProps) => {
       );
     }
     setLessons(tempLessons);
+    if (hiddenLessons.length != 0) {
+      chrome.storage.sync.set({
+        scheduleHiddenLessons: hiddenLessons,
+      });
+    }
   }, [hiddenLessons])
 
   const openOptions = () => {
