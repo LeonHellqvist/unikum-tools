@@ -14,6 +14,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Slider from '@mui/material/Slider';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { HexColorPicker } from "react-colorful";
 import Collapse from '@mui/material/Collapse';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -31,6 +32,8 @@ const Bookmarks = () => {
 /*   const [settings, setSettings] = React.useState<any>({notYetSelected: true}); */
   const [settings, setSettings] = React.useState<any>({same: {bgColor: true, radius: true, boxShadow: true}});
   const [color, setColor] = React.useState<any>("#ffe138")
+
+  const [darkBackground, setDarkBackground] = React.useState(true);
 
   React.useEffect(() => {
     chrome.storage.sync.get(["bookmarks"], (result) => {
@@ -204,15 +207,16 @@ const Bookmarks = () => {
         Bokmärken
       </Typography>
       <Paper elevation={3} sx={{ width: "100%", height: "100%", paddingBottom: 2}}>
-        <Stack direction="column" divider={<Divider orientation="horizontal" flexItem />} spacing={1}>
+        <Stack direction="column" spacing={1}>
           <Box>
-            <Box sx={{position: "absolute", ml: 2, mt: 2.5}}>
-              <LightModeIcon />
+            <Box sx={{position: "absolute", ml: 2, mt: 3}} onClick={()=> setDarkBackground(!darkBackground)}>
+              {darkBackground ? <LightModeIcon /> : <DarkModeIcon sx={{color: "black"}}/>}
             </Box>
             <DragDropContext onDragEnd={(result) => onDragEnd(result)}>
               <Droppable droppableId="droppable" direction="horizontal">
                 {(provided) => (
                   <Grid
+                    sx={{transition: "background-color 100ms ease-in-out", backgroundColor: `${darkBackground ? null : "white"}`, borderBottom: '1px solid #424242', paddingBottom: 1, borderTopLeftRadius: 5, borderTopRightRadius: 5}}
                     container
                     justifyContent="center"
                     alignItems="center"
