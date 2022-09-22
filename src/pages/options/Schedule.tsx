@@ -1081,7 +1081,7 @@ const Schedule = () => {
                               height: "100%",
                             }}
                           />
-                          <Box sx={{ padding: 1, width: "100%" }}>
+                          <Box sx={{ padding: 1, width: "300px", overflow: "hidden" }}>
                             {lesson.texts.map(
                               (item: any, index: number, length: any) => {
                                 return index != length.length - 1 ? (
