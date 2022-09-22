@@ -154,7 +154,7 @@ const ScheduleList = ({
                       backgroundColor: lesson.bColor,
                     }}
                   />
-                  <Box sx={{ padding: 1, width: "100%" }}>
+                  <Box sx={{ padding: 1, width: "315px" }}>
                     {lesson.texts.map(
                       (item: any, index: number, length: any) => {
                         return index != length.length - 1 ? (
@@ -162,6 +162,7 @@ const ScheduleList = ({
                             key={index}
                             variant="body1"
                             component="div"
+                            noWrap = {true}
                           >
                             {item}
                           </Typography>
