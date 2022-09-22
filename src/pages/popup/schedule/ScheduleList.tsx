@@ -54,13 +54,15 @@ const ScheduleList = ({
   React.useEffect(() => {
     const timer = setTimeout(() => {
       if (elRef.current) {
-        if (currentWeek == week) {
-          elRef.current.scrollIntoView({
-            behavior: "smooth",
-          });
-        } else {
-          if (stackRef.current) {
-            stackRef.current.scrollTo({ top: 0, behavior: "smooth" });
+        if (!hideMode) {
+          if (currentWeek == week) {
+            elRef.current.scrollIntoView({
+              behavior: "smooth",
+            });
+          } else {
+            if (stackRef.current) {
+              stackRef.current.scrollTo({ top: 0, behavior: "smooth" });
+            }
           }
         }
       }
