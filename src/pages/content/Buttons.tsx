@@ -30,7 +30,7 @@ const App = () => {
       alignItems="center"
     >
       {bookmarks.map((bookmark, index) => {
-        let buttonTheme = createTheme({ palette: { primary: { main: bookmark.bgColor } } });
+        let buttonTheme = createTheme({ palette: { primary: { main: bookmark.bgColor } }, typography: { button: { textTransform: "none" } }});
         let buttonStyle = {
           margin:1,
           marginTop:2,
