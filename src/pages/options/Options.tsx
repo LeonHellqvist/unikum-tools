@@ -5,9 +5,9 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import "@fontsource/roboto/400.css";
 
-import Bookmarks from "./Bookmarks";
-import Food from "./Food";
-import Schedule from "./Schedule";
+import Bookmarks from "./Bookmarks/Bookmarks";
+import Food from "./Food/Food";
+import Schedule from "./Schedule/Schedule";
 
 const Options = () => {
   return (

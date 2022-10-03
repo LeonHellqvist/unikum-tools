@@ -1,5 +1,5 @@
 import React from "react";
-import "./Options.css";
+import "../Options.css";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Paper from "@mui/material/Paper";
