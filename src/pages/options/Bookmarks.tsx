@@ -209,7 +209,7 @@ const Bookmarks = () => {
       <Paper elevation={3} sx={{ width: "100%", height: "100%", paddingBottom: 2}}>
         <Stack direction="column" spacing={1}>
           <Box>
-            <Box sx={{position: "absolute", ml: 2, mt: 3}} onClick={()=> setDarkBackground(!darkBackground)}>
+            <Box sx={{position: "absolute", ml: -4, mt: 1.5, transition: "background-color 100ms ease-in-out", backgroundColor: `${darkBackground ? "#242424" : "white"}`, paddingTop:"10px", paddingLeft:"8px", borderTopLeftRadius:"10px", borderBottomLeftRadius:"10px", height:"45px", width:"35px"}} onClick={()=> setDarkBackground(!darkBackground)}>
               {darkBackground ? <LightModeIcon /> : <DarkModeIcon sx={{color: "black"}}/>}
             </Box>
             <DragDropContext onDragEnd={(result) => onDragEnd(result)}>
