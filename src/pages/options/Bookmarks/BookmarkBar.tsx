@@ -39,7 +39,7 @@ const BookmarkBar = (props: any) => {
           : "#ffeb3b",
       radius:
         props.bookmarks && props.bookmarks.length !== 0
-          ? props.bookmarks[props.bookmarks.length - 1].borderRadius
+          ? props.bookmarks[props.bookmarks.length - 1].radius
           : 1,
       boxShadow:
         props.bookmarks && props.bookmarks.length !== 0
@@ -61,7 +61,7 @@ const BookmarkBar = (props: any) => {
           ml: -4,
           mt: 1.5,
           transition: "background-color 100ms ease-in-out",
-          backgroundColor: `${darkBackground ? "#242424" : "white"}`,
+          backgroundColor: `${darkBackground ? "#252525" : "white"}`,
           paddingTop: "10px",
           paddingLeft: "8px",
           borderTopLeftRadius: "10px",

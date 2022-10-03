@@ -49,7 +49,7 @@ const CreateButton = ({ setPage }: CreateButtonProps) => {
                 : "#ffeb3b",
             radius:
               result.bookmarks && result.bookmarks.length !== 0
-                ? result.bookmarks[result.bookmarks.length - 1].borderRadius
+                ? result.bookmarks[result.bookmarks.length - 1].radius
                 : 1,
             boxShadow:
               result.bookmarks && result.bookmarks.length !== 0
