@@ -30,6 +30,7 @@ const ScheduleHeader = ({ week, setWeek }: WeekProps) => {
   return (
     <Box
       sx={{
+        zIndex: 10000,
         position: "fixed",
         top: -2,
         marginLeft: "-12px",
