@@ -1,5 +1,6 @@
 import { ThemeProvider } from "@emotion/react";
 import { Box, Grid, createTheme, Button } from "@mui/material";
+import { v4 as uuidv4 } from "uuid";
 import React from "react";
 import {
   DragDropContext,
@@ -9,6 +10,8 @@ import {
 } from "react-beautiful-dnd";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
+import IconButton from "@mui/material/IconButton";
+import AddIcon from "@mui/icons-material/Add";
 
 const BookmarkBar = (props: any) => {
   const [darkBackground, setDarkBackground] = React.useState(true);
@@ -22,6 +25,32 @@ const BookmarkBar = (props: any) => {
 
     props.setBookmarks(items);
     console.log(result);
+  };
+
+  const addBookmark = () => {
+    const uuid = uuidv4();
+    const newBookmark = {
+      url: "example.com",
+      title: "Nytt bokmärke",
+      uuid: uuid,
+      bgColor:
+        props.bookmarks && props.bookmarks.length !== 0
+          ? props.bookmarks[props.bookmarks.length - 1].bgColor
+          : "#ffeb3b",
+      radius:
+        props.bookmarks && props.bookmarks.length !== 0
+          ? props.bookmarks[props.bookmarks.length - 1].borderRadius
+          : 1,
+      boxShadow:
+        props.bookmarks && props.bookmarks.length !== 0
+          ? props.bookmarks[props.bookmarks.length - 1].boxShadow
+          : 3,
+      style:
+        props.bookmarks && props.bookmarks.length !== 0
+          ? props.bookmarks[props.bookmarks.length - 1].style
+          : "contained",
+    };
+    props.setBookmarks([...props.bookmarks, newBookmark]);
   };
 
   return (
@@ -112,6 +141,14 @@ const BookmarkBar = (props: any) => {
                 );
               })}
               {provided.placeholder}
+              <IconButton
+                sx={{ mt: 1, height: 52 }}
+                onClick={() => addBookmark()}
+              >
+                <AddIcon
+                  sx={{ color: `${darkBackground ? "white" : "black"}` }}
+                />
+              </IconButton>
             </Grid>
           )}
         </Droppable>
