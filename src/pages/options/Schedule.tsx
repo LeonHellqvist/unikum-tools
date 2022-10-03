@@ -1046,7 +1046,7 @@ const Schedule = () => {
             </Typography>
             <Stack
               sx={{
-                height: "200px",
+                maxHeight: "200px",
                 overflowY: "scroll",
               }}
               direction="column"
