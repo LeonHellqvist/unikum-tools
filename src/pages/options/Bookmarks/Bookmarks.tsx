@@ -202,6 +202,7 @@ const Bookmarks = () => {
                     color={color}
                     setColor={setColor}
                     selectedBookmark={selectedBookmark}
+                    debounce={debounce}
                   />
                 </Stack>
               </Grid>

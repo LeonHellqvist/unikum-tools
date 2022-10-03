@@ -3,6 +3,14 @@ import React from "react";
 import { HexColorPicker } from "react-colorful";
 
 const BackgroundColor = (props: any) => {
+
+  const saveColor = React.useCallback(
+    props.debounce((color: any) => {
+      props.setColor(color);
+    }, 200),
+    []
+  );
+
   return (
     <Paper variant="outlined" sx={{ padding: 2 }}>
       <Typography
@@ -16,7 +24,7 @@ const BackgroundColor = (props: any) => {
       <Collapse in={props.selectedBookmark.notYetSelected ? false : true}>
         <HexColorPicker
           color={props.color}
-          onChange={props.setColor}
+          onChange={saveColor}
           style={{ width: "100%", marginTop: 10, height: 158 }}
         />
       </Collapse>
