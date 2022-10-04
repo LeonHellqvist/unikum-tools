@@ -18,7 +18,7 @@
 <h3 align="center">Unikum Tools</h3>
 
   <p align="center">
-    <b>Ingen kopplning med Unikum (inofficiellt)</b>
+    <b>Ingen kopplning till Unikum (inofficiellt)</b>
     <br />
     Ett tillägg som gör Unikum trevligare att använda
     <br />
