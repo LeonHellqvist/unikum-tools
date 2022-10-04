@@ -25,7 +25,7 @@
     <a href="https://chrome.google.com/webstore/category/extensions"><strong>Chrome Web Store » </strong></a><a href="https://addons.mozilla.org/sv-SE/firefox/"><strong>Firefox Addons (stöds inte än)</strong></a>
     <br />
     <br />
-    <a href="https://youtube.com">Visa demo</a>
+    <a href="https://youtube.com">Visa demo (kommer snart)</a>
     ·
     <a href="https://github.com/LeonHellqvist/unikum-tools/issues">Rapportera bugg</a>
     ·
