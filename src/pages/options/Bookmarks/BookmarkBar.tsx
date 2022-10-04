@@ -74,7 +74,7 @@ const BookmarkBar = (props: any) => {
         {darkBackground ? (
           <LightModeIcon />
         ) : (
-          <DarkModeIcon sx={{ color: "black" }} />
+          <DarkModeIcon sx={{ color: "#313131" }} />
         )}
       </Box>
       <DragDropContext onDragEnd={(result) => onDragEnd(result)}>
@@ -142,11 +142,11 @@ const BookmarkBar = (props: any) => {
               })}
               {provided.placeholder}
               <IconButton
-                sx={{ mt: 1, height: 52 }}
+                sx={{ mt: 1.8, mb: 0.7 }}
                 onClick={() => addBookmark()}
               >
                 <AddIcon
-                  sx={{ color: `${darkBackground ? "white" : "black"}` }}
+                  sx={{ color: `${darkBackground ? "white" : "#4E4E4E"}` }}
                 />
               </IconButton>
             </Grid>
