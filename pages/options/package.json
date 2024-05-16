@@ -1,0 +1,31 @@
+{
+  "name": "@chrome-extension-boilerplate/options",
+  "version": "0.0.1",
+  "description": "chrome extension options",
+  "private": true,
+  "sideEffects": true,
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "clean": "rimraf ./dist && rimraf .turbo",
+    "build": "pnpm run clean && tsc --noEmit && vite build",
+    "build:watch": "cross-env __DEV__=true vite build -w --mode development",
+    "dev": "pnpm build:watch",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "pnpm lint --fix",
+    "prettier": "prettier . --write",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@chrome-extension-boilerplate/shared": "workspace:*",
+    "@types/react-beautiful-dnd": "^13.1.8",
+    "react-beautiful-dnd": "^13.1.1",
+    "react-colorful": "^5.6.1"
+  },
+  "devDependencies": {
+    "@chrome-extension-boilerplate/hmr": "workspace:*",
+    "@chrome-extension-boilerplate/tailwindcss-config": "workspace:*",
+    "@chrome-extension-boilerplate/tsconfig": "workspace:*"
+  }
+}
